@@ -87,216 +87,245 @@
 % DmgLilac
 
 %config:
-\def\Name{Seirilia}
+\def\Name{Lemmy}
 \def\offset{-5.67} % change, if the line at the top is staggered -> -5.67 is the default value -> should work in ~100% of the cases
 
-\def\CharaClass{Warlock}
-\def\Level{1}
-\def\Background{Entertainer}
+\def\CharaClass{Bard}
+\def\Level{20}
+\def\Background{Folk Hero}
 \def\Playername{}
-\def\Race{Tiefling}
-\def\Alignment{Neutral Good}
-\def\EP{} % not set
+\def\Race{High Elf}
+\def\Alignment{Neutral}
+\def\EP{}
 
 \def\Speed{30}
-\def\Initiative{+2}
-\def\AC{13}
-\def\Prof{+2}
+\def\Initiative{+3}
+\def\AC{}
+\def\Prof{+6}
 
-\def\MaxHP{9}
+\def\MaxHP{117}
 \def\HitDice{d8}
 
-\def\Str{7}
-\def\Dex{15}
-\def\Con{12}
-\def\Int{14}
-\def\Wis{11}
-\def\Cha{20}
+\def\Str{10}
+\def\Dex{16}
+\def\Con{11}
+\def\Int{16}
+\def\Wis{14}
+\def\Cha{18}
 
-\def\StrMod{-2}
-\def\DexMod{+2}
-\def\ConMod{+1}
-\def\IntMod{+2}
-\def\WisMod{0}
-\def\ChaMod{+5}
+\def\StrMod{0}
+\def\DexMod{+3}
+\def\ConMod{0}
+\def\IntMod{+3}
+\def\WisMod{+2}
+\def\ChaMod{+4}
 
-\def\StrSave{-2}
-\def\DexSave{+2}
-\def\ConSave{+1}
-\def\IntSave{+2}
+\def\StrSave{0}
+\def\DexSave{+9}
+\def\ConSave{0}
+\def\IntSave{+3}
 \def\WisSave{+2}
-\def\ChaSave{+7}
+\def\ChaSave{+10}
 
 % save profs
-\def\firstStat{Cha}
-\def\secondStat{Wis}
+\def\firstStat{Dex}
+\def\secondStat{Cha}
 
 % modifiers for skills (add prof bonus if prof)
 %str
-\def\Athletics{-2}
+\def\Athletics{}
 %dex
-\def\Acrobatics{+4}
-\def\SleightOfHand{+2}
-\def\Stealth{+2}
+\def\Acrobatics{}
+\def\SleightOfHand{}
+\def\Stealth{}
 %int
-\def\Arcana{+4}
-\def\History{+2}
-\def\Investigation{+2}
-\def\Nature{+2}
-\def\Religion{+2}
+\def\Arcana{}
+\def\History{}
+\def\Investigation{}
+\def\Nature{}
+\def\Religion{}
 %wis
-\def\AnimalHandling{0}
-\def\Insight{0}
-\def\Medicine{0}
-\def\Perception{0}
-\def\Survival{0}
+\def\AnimalHandling{}
+\def\Insight{}
+\def\Medicine{}
+\def\Perception{}
+\def\Survival{}
 %cha
-\def\Deception{+7}
-\def\Intimidation{+5}
-\def\Performance{+7}
-\def\Persuasion{+5}
+\def\Deception{}
+\def\Intimidation{}
+\def\Performance{}
+\def\Persuasion{}
 
 % prof (0/1)
 \def\AthleticsProf{0}
 %dex
-\def\AcrobaticsProf{1}
+\def\AcrobaticsProf{0}
 \def\SleightOfHandProf{0}
 \def\StealthProf{0}
 %int
-\def\ArcanaProf{1}
-\def\HistoryProf{0}
-\def\InvestigationProf{0}
+\def\ArcanaProf{0}
+\def\HistoryProf{1}
+\def\InvestigationProf{1}
 \def\NatureProf{0}
 \def\ReligionProf{0}
 %wis
 \def\AnimalHandlingProf{0}
 \def\InsightProf{0}
 \def\MedicineProf{0}
-\def\PerceptionProf{0}
+\def\PerceptionProf{1}
 \def\SurvivalProf{0}
 %cha
-\def\DeceptionProf{1}
+\def\DeceptionProf{0}
 \def\IntimidationProf{0}
 \def\PerformanceProf{1}
 \def\PersuasionProf{0}
 
-\def\Age{16}
-\def\Height{5'5}
-\def\Weight{90 lb}
-\def\Skin{purple}
-\def\Eyes{green}
-\def\Hair{Short grey}
+\def\Age{512}
+\def\Height{5'10}
+\def\Weight{150 lb}
+\def\Skin{Pale}
+\def\Eyes{grey}
+\def\Hair{Black Long}
 
 \def\SpellAbility{Cha}
-\def\SpellAtk{+7}
-\def\SpellSaveDC{15}
+\def\SpellAtk{+10}
+\def\SpellSaveDC{18}
 
-\def\FirstLevelSlots{1}
-\def\SecondLevelSlots{0}
-\def\ThirdLevelSlots{0}
-\def\FourthLevelSlots{0}
-\def\FifthLevelSlots{0}
-\def\SixthLevelSlots{0}
-\def\SeventhLevelSlots{0}
-\def\EightLevelSlots{0}
-\def\NinthLevelSlots{0}
+\def\FirstLevelSlots{4}
+\def\SecondLevelSlots{3}
+\def\ThirdLevelSlots{3}
+\def\FourthLevelSlots{3}
+\def\FifthLevelSlots{3}
+\def\SixthLevelSlots{2}
+\def\SeventhLevelSlots{2}
+\def\EightLevelSlots{1}
+\def\NinthLevelSlots{1}
 
 \def\Cantrips{
-	\small %uncomment for non-wizards...
 	\begin{tabularx}{\linewidth}{lX}
+		\textbf{Fire Bolt} & Int, 1 Action, 120ft, 4d10 Fire damage, VS\\
 		\textbf{Mage Hand} & 1 Action, 30ft, 1 Min, Can’t attack, activate magical items, or carry more than 10 pounds. V, S\\
-		\textbf{Eldritch Blast} & 1 Action, 120ft, 1d10 force damage, V, S\\
-		\textbf{Thaumaturgy} & 1 Action, 30ft, 1 Min, max 3 at the time, Effects: 1) Your voice booms up to three times as loud 2) flames flicker, brighten, dim, or change color 3) harmless tremors in the ground  4) instantaneous sound that originates from a point of your choice 5) instantaneously fly open or slam shut an unlocked door or window 6) alter the appearance of your eyes. V\\
-		\textbf{Light} & 1 Action, Touch, 1h, Dex-save, 10ft x 10ft x 10ft, the object sheds bright light in a 20-foot radius and dim light for 20 feet. V, M (a firefly or phosphorescent moss)\\
-		\textbf{Sacred Flame} & 1 Action, 60ft, 1d8 radiant damage, 1 target, Dex-save, no benefit from cover. V, S\\
 	\end{tabularx}
 }
 \def\FirstLevelSpells{
 	\begin{tabularx}{\linewidth}{lX}
-		\textbf{Cure Wounds} & 1 Action, A creature you touch regains 1d8 + your spellcasting ability modifier of hit points. This spell has no effect on undead or constructs. V, S\\
+		
 	\end{tabularx}
 }
-% you will not be able to just add spells of 2nd lvl and higher, but you can use my template, if you want to level up with this character
+\def\SecondLevelSpells{
+	\begin{tabularx}{\linewidth}{lX}
+		
+	\end{tabularx}
+}
+\def\ThirdLevelSpells{
+	%\small %uncomment for non-wizards...
+	\begin{tabularx}{\linewidth}{lX}
+		
+	\end{tabularx}
+}
+\def\FourthLevelSpells{
+	\begin{tabularx}{\linewidth}{lX}
+		
+	\end{tabularx}
+}
+\def\FifthLevelSpells{
+	\begin{tabularx}{\linewidth}{lX}
+		
+	\end{tabularx}
+}
+\def\SixthLevelSpells{
+	%\small %uncomment for non-wizards...
+	\begin{tabularx}{\linewidth}{lX}
+		
+	\end{tabularx}
+}
+\def\SeventhLevelSpells{
+	\begin{tabularx}{\linewidth}{lX}
+		
+	\end{tabularx}
+}
+\def\EightLevelSpells{
+	\begin{tabularx}{\linewidth}{lX}
+		
+	\end{tabularx}
+}
+\def\NinthLevelSpells{
+	\begin{tabularx}{\linewidth}{lX}
+		
+	\end{tabularx}
+}
 
-% todo
 \def\Description{
-	
 }
 
 \def\WeaponEquipment{
 	%max 4 weapons -> with some only 3, with morningstar & co 5
-		\textbf{4 Daggers}\\
-		\raggedleft
-		+4 1d4 + 2 Piercing\\
-		Light, Finesse, Thrown (20/60)\\
-		\raggedright
+		%Example (uncomment to test):
+		%\textbf{Shortsword}\\
+		%\raggedleft
+		%+10 1d6 + 4 Piercing\\
+		%Light, Finesse\\
+		%\raggedright
 }
 
 \def\WeaponProf{
 	%warning, empty itemize throws error -> empty item placed -> don't let this unused...
 	\begin{itemize}
-		\item Simple weapons
+		\item Simple Weapons
+		\item Longsword
+		\item Shortsword
+		\item Longbow
+		\item Shortbow
+		\item Scimitar
+		\item Rapier
+		\item Hand Crossbow
 	\end{itemize}
 }
 \def\ArmorProf{
 	\begin{itemize}
 		\item Light Armor
+		\item Medium Armor
 	\end{itemize}
 }
 \def\LanguageProf{
 	\begin{itemize}
 		\item Common
-		\item Infernal
+		\item Elfish
+		\item Sylvan
 	\end{itemize}
 }
 \def\ToolProf{
 	\begin{itemize}
-		\item Disguise kit
-		\item Flute
+	%	\item[$\bullet$] Smith’s tools %Example
+	\item
 	\end{itemize}
 }
 
 \def\ClassFeature{
+	\scriptsize
 	\begin{tabularx}{\textwidth}{lX}
-		\textbf{Pact Magic}	& Regain Spellslots form a short rest. You can use an arcane focus as a spellcasting focus for your warlock spells.\\
-	\end{tabularx}
-	\textcolor{titlered}{\large The Celestial}\\
-	\begin{tabularx}{\textwidth}{lX}
-		\textbf{Healing Light} & You have a pool of 1 + your warlock level d6s per long rest. As a bonus action, you can heal one creature you can see within 60 feet of you, spending dice from the pool. The maximum number of dice you can spend at once equals your Charisma modifier.\\
+	%	\textbf{Spellcasting}	& You have a spellbook containing spells.\\ %Example
 	\end{tabularx}
 }
 \def\RaceFeature{
+	\scriptsize
 	\begin{tabularx}{\textwidth}{lX}
-		\textbf{Darkvision}	& You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can’t discern color in darkness.\\
-		\textbf{Hellish Resistance.} & Resistance to fire damage.\\
-		\textbf{Infernal Legacy.} & You know the Thaumaturgy cantrip, charisma is your spellcasting ability.
+		\textbf{Darkvision}	& You can see in dim light within 60 feet as in bright light, and in darkness as in dim light. You can't discern color in darkness.\\
+		\textbf{Fey Ancestry} & You have advantage on saving throws against being charmed, and magic can't put you to sleep.\\
+		\textbf{Trance} & Elves meditate deeply, remaining semi-conscious, for 4 hours a day. You gain the same benefit a human would from 8 hours of sleep.\\
 	\end{tabularx}
 }
 \def\BackgroundFeature{
+	\scriptsize
 	\begin{tabularx}{\textwidth}{lX}
-		\textbf{By Popular Demand}	& You can always find a place to perform. At such a place, you receive free lodging and food, as long as you perform each night\\
+	%	\textbf{All Eyes on You}	& You can parley attention into access to people and places.\\ %Example
 	\end{tabularx}
 }
 
 %static -> don't use for changing stuff, like arows, food etc
-% gold from background: 15
 \def\Equipment{
 	\begin{tabularx}{\textwidth}{lX}
-		\textbf{Flute}&\\
-		\textbf{Costume}&\\
-		\textbf{Favor of an admirer} & love letter\\
-		\textbf{Backpack}&\\
-		\textbf{Crowbar}&\\
-		\textbf{Hammer}&\\
-		\textbf{Pitons}& 10\\
-		\textbf{Torches}& 10\\
-		\textbf{Tinderbox}&\\
-		\textbf{Rations}& 10 days\\
-		\textbf{Waterskin}&\\
-		\textbf{Rope}& 50ft\\
-		\textbf{component pouch}&\\
-		\textbf{Leather armor} & AC 11 + dex
-		
+		%\textbf{Rope}	& $50ft$ % Example
 	\end{tabularx}
 }
 
@@ -438,10 +467,30 @@
 			\NinthLevelSlots
 		\end{tabularx}
 	\end{center}
-	\begin{minipage}[t]{1\linewidth}\scriptsize
+	\begin{minipage}[t]{.334\linewidth}\scriptsize
 		\textcolor{titlered}{\large Cantrips}\\
 		\Cantrips
 		\textcolor{titlered}{\large 1st Level}\\
 		\FirstLevelSpells
+		\textcolor{titlered}{\large 2nd Level}\\
+		\SecondLevelSpells
 	\end{minipage}%
+	\begin{minipage}[t]{.333\linewidth}\scriptsize
+		\textcolor{titlered}{\large 3th Level}\\
+		\ThirdLevelSpells
+		\textcolor{titlered}{\large 4th Level}\\
+		\FourthLevelSpells
+		\textcolor{titlered}{\large 5th Level}\\
+		\FifthLevelSpells
+	\end{minipage}%
+	\begin{minipage}[t]{.333\linewidth}\scriptsize
+		\textcolor{titlered}{\large 6th Level}\\
+		\SixthLevelSpells
+		\textcolor{titlered}{\large 7th Level}\\
+		\SeventhLevelSpells
+		\textcolor{titlered}{\large 8th Level}\\
+		\EightLevelSpells
+		\textcolor{titlered}{\large 9th Level}\\
+		\NinthLevelSpells
+	\end{minipage} %
 \end{document}
