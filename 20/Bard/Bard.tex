@@ -28,26 +28,6 @@
 	left=2cm,
 	right=2cm
 }
-\newcommand*\circled[2][2pt]{
-	\tikz
-	[
-		decoration={
-			random steps,
-			amplitude=1pt,
-			segment length=5pt
-		},
-		baseline=(char.base)
-	]{
-		\node
-		[
-			decorate,
-			shape=circle,
-			draw,
-			inner sep=#1-1pt
-		]
-		(char) {#2};
-	}
-}
 
 \singlespacing
 \makeatletter
@@ -86,6 +66,8 @@
 % DmgSlateGray
 % DmgLilac
 
+%asi: 4: cha +2
+
 %config:
 \def\Name{Lemmy}
 \def\offset{-5.67} % change, if the line at the top is staggered -> -5.67 is the default value -> should work in ~100% of the cases
@@ -111,21 +93,21 @@
 \def\Con{11}
 \def\Int{16}
 \def\Wis{14}
-\def\Cha{18}
+\def\Cha{20}
 
 \def\StrMod{0}
 \def\DexMod{+3}
 \def\ConMod{0}
 \def\IntMod{+3}
 \def\WisMod{+2}
-\def\ChaMod{+4}
+\def\ChaMod{+5}
 
 \def\StrSave{0}
 \def\DexSave{+9}
 \def\ConSave{0}
 \def\IntSave{+3}
 \def\WisSave{+2}
-\def\ChaSave{+10}
+\def\ChaSave{+11}
 
 % save profs
 \def\firstStat{Dex}
@@ -188,8 +170,8 @@
 \def\Hair{Black Long}
 
 \def\SpellAbility{Cha}
-\def\SpellAtk{+10}
-\def\SpellSaveDC{18}
+\def\SpellAtk{+11}
+\def\SpellSaveDC{19}
 
 \def\FirstLevelSlots{4}
 \def\SecondLevelSlots{3}
