@@ -11,3 +11,7 @@ to compile the documents by your own, you need this [LaTeX-Template](https://git
 ## Character
 - L1 Warlock (Done)
 - L20 Bard (WIP)
+
+## Announcements
+
+Dec/11/21: there will soon come 4 level 10 character -> this time every feature and spell is written out in the document after the character sheet -> in case you don't have the books...
