@@ -1,0 +1,737 @@
+\documentclass[a4paper,10pt,bg=print]{dndbook} %a4, 10pt, bg=print / full
+\usepackage[english]{babel} %language
+\usepackage[utf8]{inputenc} %lovely utf-8
+\usepackage{graphicx} %images
+\usepackage{array} %allways use this shit, idk why
+\usepackage{tikz} %draw stuff
+\usepackage{ifthen} %draw stuff
+\usetikzlibrary{calc,fadings} %draw stuff
+\usepackage{xspace} %usefull idk, allways import this stuff
+\usepackage{setspace} %don't ask, kind of like it...
+\usepackage{pgfplots}
+\usepackage{tabularx} % table
+\usepackage[singlelinecheck=false]{caption} %idk dndbook...
+\usepackage{listings} %idk dndbook...
+\usepackage{stfloats} %idk dndbook
+\usepackage{yfonts}
+\usepackage{aurical}
+\usepackage[T1]{fontenc}
+
+\graphicspath{ {./images/} }
+
+\pagestyle{empty} % no footer
+
+\geometry { % paper type + spacing
+	a4paper,
+	top=2cm,
+	bottom=2cm,
+	left=2cm,
+	right=2cm
+}
+\newcommand*\circled[2][2pt]{
+	\tikz
+	[
+		decoration={
+			random steps,
+			amplitude=1pt,
+			segment length=5pt
+		},
+		baseline=(char.base)
+	]{
+		\node
+		[
+			decorate,
+			shape=circle,
+			draw,
+			inner sep=#1-1pt
+		]
+		(char) {#2};
+	}
+}
+
+\singlespacing
+\makeatletter
+
+\def \license {GNU Free Documentation License (https://www.gnu.org/licenses/fdl-1.3)}
+\def \author {Sven Hugi}%if you edit this document, add your name... <3
+
+%highlighting with some random effect -> looks handmade and i love it... you can use this in you texts
+\newcommand\hl[2][yellow]{
+	\begin{tikzpicture}[
+	baseline,
+	decoration={random steps,amplitude=1pt,segment length=15pt},
+	outer sep=-15pt, inner sep = 0pt
+	]
+	\node[decorate,rectangle,fill=#1,anchor=text]{#2\xspace};
+	\end{tikzpicture}
+}
+% colors:
+
+% bgtan
+% bgtan2018
+% pagegold
+
+% titlered
+% titlegold
+% rulered
+% contourgray
+
+% BrGreen
+% PhbLightGreen
+% PhbLightCyan
+% PhbMauve
+% PhbTan
+% DmgLavender
+% DmgCoral
+% DmgSlateGray
+% DmgLilac
+
+%config:
+\def\Name{Era}
+\def\offset{-6.67} % change, if the line at the top is staggered -> -5.67 is the default value -> should work in ~100% of the cases
+
+\def\CharaClass{Eldritch Mage Archer}
+\def\Level{10}
+\def\Background{Outlander}
+\def\Playername{}
+\def\Race{Lythari}
+\def\Alignment{CG}
+\def\EP{-}
+
+\def\Speed{30 / 40}
+\def\Initiative{+4}
+\def\AC{15/16}
+\def\Prof{+4}
+
+\def\MaxHP{76}
+\def\HitDice{d6}
+
+\def\Str{9}
+\def\Dex{18} % asi 2
+\def\Con{16} % asi 2
+\def\Int{18} % asi 1
+\def\Wis{14}
+\def\Cha{12}
+
+\def\StrMod{-1}
+\def\DexMod{+4}
+\def\ConMod{+3}
+\def\IntMod{+4}
+\def\WisMod{+2}
+\def\ChaMod{+1}
+
+\def\StrSave{-1}
+\def\DexSave{+4}
+\def\ConSave{+3}
+\def\IntSave{+8}
+\def\WisSave{+6}
+\def\ChaSave{+1}
+
+% save profs
+\def\firstStat{Int}
+\def\secondStat{Wis}
+
+% modifiers for skills (add prof bonus if prof)
+%str
+\def\Athletics{+3}
+%dex
+\def\Acrobatics{+4}
+\def\SleightOfHand{+4}
+\def\Stealth{+8}
+%int
+\def\Arcana{+8}
+\def\History{+4}
+\def\Investigation{+4}
+\def\Nature{+4}
+\def\Religion{+4}
+%wis
+\def\AnimalHandling{+2}
+\def\Insight{+2}
+\def\Medicine{+2}
+\def\Perception{+6}
+\def\Survival{+6}
+%cha
+\def\Deception{+1}
+\def\Intimidation{+1}
+\def\Performance{+1}
+\def\Persuasion{+1}
+
+% prof (0/1)
+\def\AthleticsProf{1}
+%dex
+\def\AcrobaticsProf{0}
+\def\SleightOfHandProf{0}
+\def\StealthProf{1}
+%int
+\def\ArcanaProf{1}
+\def\HistoryProf{0}
+\def\InvestigationProf{0}
+\def\NatureProf{0}
+\def\ReligionProf{0}
+%wis
+\def\AnimalHandlingProf{0}
+\def\InsightProf{0}
+\def\MedicineProf{0}
+\def\PerceptionProf{1}
+\def\SurvivalProf{1}
+%cha
+\def\DeceptionProf{0}
+\def\IntimidationProf{0}
+\def\PerformanceProf{0}
+\def\PersuasionProf{0}
+
+\def\Age{64}
+\def\Height{5'7}
+\def\Weight{115}
+\def\Skin{Pale}
+\def\Eyes{Yellow}
+\def\Hair{Long white}
+
+\def\SpellAbility{Int}
+\def\SpellAtk{+8}
+\def\SpellSaveDC{16}
+
+\def\FirstLevelSlots{3}
+\def\SecondLevelSlots{3}
+\def\ThirdLevelSlots{2}
+\def\FourthLevelSlots{2}
+\def\FifthLevelSlots{1}
+\def\SixthLevelSlots{0}
+\def\SeventhLevelSlots{0}
+\def\EightLevelSlots{0}
+\def\NinthLevelSlots{0}
+
+\def\PP{}
+\def\GP{10}
+\def\ElP{}
+\def\SP{}
+\def\CP{}
+
+
+\def\Cantrips{
+	%\small %uncomment for non-wizards...
+	\begin{tabularx}{\linewidth}{lX}
+		\textbf{Mage Hand} 		& act, 30ft, VS, 1min, 10lb\\
+		\textbf{MindSliver}		& act, 60ft, V, 1 round, int save, 2d6 psychic, -1d4 on next save\\
+		\textbf{Toll the Dead}	& act, 60ft, VS, wis save 2d8 necrotic / 2d12 necrotic\\
+		\textbf{Gust}			& act, 30ft, VS, 1: medium or smaller, str save, pushed 5ft away, 2: air blast, push 5lb object 10ft away, 3: harmless effect with air like leaves rustle, wind slam shutters shut etc\\
+	\end{tabularx}
+}
+\def\FirstLevelSpells{
+	\begin{tabularx}{\linewidth}{lX}
+		\textbf{Find Familiar} 	& 1h, 10ft, VSM (10gp charcoal, incense, herbs consumed by fire in a brass brazier), spider\\
+		\textbf{Hunter’s Mark}	& bonus act, 90ft, V, con 1h, +1d6 dmg on attack adv on finding target, if drop to 0 hp switch target as bonus act\\
+		\textbf{Cure Wounds}	& act, T, VS, 1d8+int\\
+	\end{tabularx}
+}
+\def\SecondLevelSpells{
+	\begin{tabularx}{\linewidth}{lX}
+		\textbf{Darkness}			& act, 60ft, VM, con 10min, 15ft radius\\
+		\textbf{Invisibility}		& act, T, VSM, con 1h\\
+		\textbf{Misty Step}			& bonus act, self, V, 30ft\\
+		\textbf{Melf’s Acid Arrow}	& act, 90ft, VSM, 4d4 acid and 2d4 on next turn on hit or 2d4 acid on miss\\
+	\end{tabularx}
+}
+\def\ThirdLevelSpells{
+	%\small %uncomment for non-wizards...
+	\begin{tabularx}{\linewidth}{lX}
+		\textbf{Lightning Arrow}	& bonus action, self, VS, con 1min, next attack 4d8 lightning, half on miss, 10ft of target dex save 2d8 lightning\\
+		\textbf{Flame Arrows} 		& act, T, VS, con 1h, 1d6 fire, 1 quiver (max 12 arrows)\\
+		\textbf{Fireball}			& act, 150ft, VSM, 20ft radius, dex save, 8d6 fire, around corners, ignites objects\\
+	\end{tabularx}
+}
+\def\FourthLevelSpells{
+	\begin{tabularx}{\linewidth}{lX}
+		\textbf{Phantasmal Killer}	& act, 120ft, VS, con 1min, wis save, frightend, wis save 4d10 at end of every round for duration\\
+		\textbf{Confusion}			& act, 90ft, VSM, con 1min, 10ft radius, wis save, no reactions, d10 every round; 1: move random, 2-6: nothing, 7-8: random melee attack, 9-10: act normal\\
+	\end{tabularx}
+}
+\def\FifthLevelSpells{
+	\begin{tabularx}{\linewidth}{lX}
+		\textbf{Geas}			& 1min, 60ft, V, 30d, command, no suicide, 1xday do something against 5d10 psychic, dismiss with action, remove curse, greater restoration or wish.\\
+		\textbf{Swift Quiver}	& bonus act, T, VSM, con 1min, quiver reproduces ammunition + bonus action for 2 attacks\\
+	\end{tabularx}
+}
+
+\def\Description{
+}
+
+\def\WeaponEquipment{
+	%max 4 weapons -> with some only 3, with morningstar & co 5
+		%Example (uncomment to test):
+		%\textbf{Shortsword}\\
+		%\raggedleft
+		%+10 1d6 + 4 Piercing\\
+		%Light, Finesse\\
+		%\raggedright
+		\textbf{Longbow}\\
+		\raggedleft
+		+10 1d8 + 4 force\\
+		ammunition (range 150/600), heavy, two-handed\\
+		\raggedright
+		\textbf{Dagger}\\
+		\raggedleft
+		+8 1d4 + 4 Piercing\\
+		thrown (range 20/60), light, finesse\\
+		\raggedright
+		\textbf{Bite}\\
+		\raggedleft
+		-1 1d6 -1 Piercing\\
+		natural\\
+		\raggedright
+}
+
+\def\WeaponProf{
+	%warning, empty itemize throws error -> empty item placed -> don't let this unused...
+	\begin{itemize}
+	%	\item[$\bullet$] Longsword % Example
+		\item Simple Weapons
+		\item Martial Ranged Weapons
+	\end{itemize}
+}
+\def\ArmorProf{
+	\begin{itemize}
+		\item Light Armor
+	\end{itemize}
+}
+\def\LanguageProf{
+	\begin{itemize}
+		\item Common
+		\item Elfen
+		\item Sylvan
+	\end{itemize}
+}
+\def\ToolProf{
+	\begin{itemize}
+		\item Flute
+	\end{itemize}
+}
+
+\def\ClassFeature{
+	% invocation: Otherworldly leap (jump at will)
+	\begin{tabularx}{\textwidth}{lX}
+	%	\textbf{Spellcasting}	& You have a spellbook containing spells.\\ %Example
+		\textbf{Mage Archery}	& Bow, up to range bow (normal castign possible), focus, lvl+int spells on list, ritual casting, max range disadv\\
+		\textbf{Archery}		& +2 atk on ranged weapons\\
+		\textbf{Eldritch Arrow}	& Ranged weapon force dmg, free arrows\\
+		\textbf{Eldritch Invocation}	& Otherworldly leap (jump at will)\\
+		\textbf{Extra Attack}			& 2 attacks\\
+	\end{tabularx}
+}
+\def\RaceFeature{
+	\begin{tabularx}{\textwidth}{lX}
+		\textbf{Darkvision}	& 60ft dim Light see as bright, darkness as dim. No color in darkness.\\ 
+		\textbf{Wolf Form}	& bonus act, no weapon / shield, ac 12+dex, only understand wolfs\\
+		\textbf{Wold Sense}	& in  wolf form adv perception (smelling, hearing)\\
+		\textbf{Bite}		& in wolf form bite nat weapon, 1d6+str piercing\\
+		\textbf{Fey Ancestry}	& in humanoid form adv saves being charmed, magic can't put you to sleep\\
+		\textbf{Trance}		& in humanoid form 4h long rest\\
+	\end{tabularx}
+}
+\def\BackgroundFeature{
+	\begin{tabularx}{\textwidth}{lX}
+		\textbf{Wanderer}	& excellent memory for maps and geography, always recall general layout of terrain, find food and water for you + 5 persons\\
+	\end{tabularx}
+}
+
+%static -> don't use for changing stuff, like arows, food etc
+\def\Equipment{
+	\begin{tabularx}{\textwidth}{lX}
+		\textbf{Staff}				& Old, Wood\\
+		\textbf{Hunting Trap}		&\\
+		\textbf{Trophy}				& Horn\\
+		\textbf{Traveler's Clothes}	& Dark\\
+		\textbf{Arrow}				& 30\\
+		\textbf{Arcane Focus}		& Ring with purple crystal\\
+		\textbf{Dagger}				& Made from a purple crystal shard\\
+		\textbf{Longbow}			& dark wood with purple crystals in it\\
+		\textbf{Crowbar}			&\\
+		\textbf{Hammer}				&\\
+		\textbf{Piton}				& 10\\
+		\textbf{Torch}				& 10\\
+		\textbf{Tinderbox}			&\\
+		\textbf{Ration}				& 10 days\\
+		\textbf{Waterskin}			&\\
+		\textbf{Hemped Rope}		& 50ft\\
+		\textbf{Leather Armor}		& Old dark ac 11 + dex\\
+	\end{tabularx}
+}
+\def\FullSpells{
+	\DndSpellHeader
+	{Mage Hand}
+	{Conjuration-Cantrip}
+	{Action}
+	{30ft}
+	{V, S}
+	{1 minute}
+	A spectral, floating hand appears at a point you choose within range. The hand lasts for the duration or until you dismiss it as an action. The hand vanishes if it is ever more than 30 feet away from you or if you cast this spell again.\linebreak
+	You can use your action to control the hand. You can use the hand to manipulate an object, open an unlocked door or container, stow or retrieve an item from an open container, or pour the contents out of a vial. You can move the hand up to 30 feet each time you use it.\linebreak
+	The hand can’t attack, activate magical items, or carry more than 10 pounds.\linebreak
+	\DndSpellHeader
+	{Toll the Dead}
+	{Necromancy-Cantrip}
+	{Action}
+	{60ft}
+	{V, S}
+	{Instantaneous}
+	You point at one creature you can see within range, and the sound of a dolorous bell fills the air around it for a moment. The target must succeed on a Wisdom saving throw or take 1d8 necrotic damage. If the target is missing any of its hit points, it instead takes 1d12 necrotic damage.\linebreak
+	\textbf{At Higher Levels.} The spell’s damage increases by one die when you reach 5th level (2d8 or 2d12), 11th level (3d8 or 3d12), and 17th level (4d8 or 4d12).\linebreak
+	\DndSpellHeader
+	{Mind Sliver}
+	{Enchantmen-Ccantrip}
+	{Action}
+	{60ft}
+	{V}
+	{1 Round}
+	You drive a disorienting spike of psychic energy into the mind of one creature you can see within range. The target must succeed on an Intelligence saving throw or take 1d6 psychic damage and subtract 1d4 from the next saving throw it makes before the end of your next turn.\linebreak
+	\textbf{At Higher Levels.} This spell’s damage increases by 1d6 when you reach certain levels: 5th level (2d6), 11th level (3d6), and 17th level (4d6).\linebreak
+	\DndSpellHeader
+	{Gust}
+	{Transmutation-Cantrip}
+	{Action}
+	{30ft}
+	{V, S}
+	{Instantaneous}
+	You seize the air and compel it to create one of the following effects at a point you can see within range:\linebreak
+	\begin{itemize}
+		\item One Medium or smaller creature that you choose must succeed on a Strength saving throw or be pushed up to 5 feet away from you.
+		\item You create a small blast of air capable of moving one object that is neither held nor carried and that weighs no more than 5 pounds. The object is pushed up to 10 feet away from you. It isn’t pushed with enough force to cause damage.
+		\item You create a harmless sensory affect using air, such as causing leaves to rustle, wind to slam shutters shut, or your clothing to ripple in a breeze.
+	\end{itemize}
+	\DndSpellHeader
+	{Find Familiar}
+	{1st-level Conjuration (ritual)}
+	{1 hour}
+	{10ft}
+	{V, S, M (10 gp worth of charcoal, incense, and herbs that must be consumed by fire in a brass brazier)}
+	{Instantaneous}
+	You gain the service of a familiar, a spirit that takes an animal form you choose: bat, cat, crab, frog (toad), hawk, lizard, octopus, owl, poisonous snake, fish (quipper), rat, raven, sea horse, spider, or weasel. Appearing in an unoccupied space within range, the familiar has the statistics of the chosen form, though it is a celestial, fey, or fiend (your choice) instead of a beast.\linebreak
+	Your familiar acts independently of you, but it always obeys your commands. In combat, it rolls its own initiative and acts on its own turn. A familiar can’t attack, but it can take other actions as normal.\linebreak
+	When the familiar drops to 0 hit points, it disappears, leaving behind no physical form. It reappears after you cast this spell again.\linebreak
+	While your familiar is within 100 feet of you, you can communicate with it telepathically. Additionally, as an action, you can see through your familiar’s eyes and hear what it hears until the start of your next turn, gaining the benefits of any special senses that the familiar has. During this time, you are deaf and blind with regard to your own senses.\linebreak
+	As an action, you can temporarily dismiss your familiar. It disappears into a pocket dimension where it awaits your summons. Alternatively, you can dismiss it forever. As an action while it is temporarily dismissed, you can cause it to reappear in any unoccupied space within 30 feet of you.\linebreak
+	You can’t have more than one familiar at a time. If you cast this spell while you already have a familiar, you instead cause it to adopt a new form. Choose one of the forms from the above list. Your familiar transforms into the chosen creature.\linebreak
+	Finally, when you cast a spell with a range of touch, your familiar can deliver the spell as if it had cast the spell. Your familiar must be within 100 feet of you, and it must use its reaction to deliver the spell when you cast it. If the spell requires an attack roll, you use your attack modifier for the roll.\linebreak
+	\DndSpellHeader
+	{Hunter’s Mark}
+	{1st-level Divination}
+	{Bonus Action}
+	{90ft}
+	{V}
+	{Concentration, up to 1 hour}
+	You choose a creature you can see within range and mystically mark it as your quarry. Until the spell ends, you deal an extra 1d6 damage to the target whenever you hit it with a weapon attack, and you have advantage on any Wisdom (Perception) or Wisdom (Survival) check you make to find it.\linebreak
+	If the target drops to 0 hit points before this spell ends, you can use a bonus action on a subsequent turn of yours to mark a new creature.\linebreak
+	\textbf{At Higher Levels.} When you cast this spell using a spell slot of 3rd or 4th level, you can maintain your concentration on the spell for up to 8 hours. When you use a spell slot of 5th level or higher, you can maintain your concentration on the spell for up to 24 hours.\linebreak
+	\vfill\pagebreak
+	\DndSpellHeader
+	{Cure Wounds}
+	{1st-level Evocation}
+	{Action}
+	{Touch}
+	{V, S}
+	{Instantaneous}
+	A creature you touch regains a number of hit points equal to 1d8 + your spellcasting ability modifier. This spell has no effect on undead or constructs.\linebreak
+	\textbf{At Higher Levels.} When you cast this spell using a spell slot of 2nd level or higher, the healing increases by 1d8 for each slot level above 1st.\linebreak
+	\DndSpellHeader
+	{Darkness}
+	{2nd-level Evocation}
+	{Action}
+	{60ft}
+	{V, M (bat fur and a drop of pitch or piece of coal)}
+	{ Concentration, up to 10 minutes}
+	Magical darkness spreads from a point you choose within range to fill a 15-foot radius sphere for the duration. The darkness spreads around corners. A creature with darkvision can’t see through this darkness, and nonmagical light can’t illuminate it.\linebreak
+	If the point you choose is on an object you are holding or one that isn’t being worn or carried, the darkness emanates from the object and moves with it. Completely covering the source of the darkness with an opaque object, such as a bowl or a helm, blocks the darkness.\linebreak
+	If any of this spell’s area overlaps with an area of light created by a spell of 2nd level or lower, the spell that created the light is dispelled.\linebreak
+	\DndSpellHeader
+	{Invisibility}
+	{2nd-level Illusion}
+	{Action}
+	{Touch}
+	{V, S, M (an eyelash encased in gum arabic)}
+	{Concentration, up to 1 hour}
+	A creature you touch becomes invisible until the spell ends. Anything the target is wearing or carrying is invisible as long as it is on the target’s person. The spell ends for a target that attacks or casts a spell.\linebreak
+	\textbf{At Higher Levels.} When you cast this spell using a spell slot of 3rd level or higher, you can target one additional creature for each slot level above 2nd.\linebreak
+	\DndSpellHeader
+	{Misty Step}
+	{2nd-level Conjuration}
+	{Bonus Action}
+	{Self}
+	{V}
+	{Instantaneous}
+	Briefly surrounded by silvery mist, you teleport up to 30 feet to an unoccupied space that you can see.\linebreak
+	\vfill\pagebreak
+	\DndSpellHeader
+	{Melf’s Acid Arrow}
+	{2nd-level Evocation}
+	{Action}
+	{90ft}
+	{V, S, M (powdered rhubarb leaf and an adder’s stomach)}
+	{Instantaneous}
+	A shimmering green arrow streaks toward a target within range and bursts in a spray of acid. Make a ranged spell attack against the target. On a hit, the target takes 4d4 acid damage immediately and 2d4 acid damage at the end of its next turn. On a miss, the arrow splashes the target with acid for half as much of the initial damage and no damage at the end of its next turn.\linebreak
+	\textbf{At Higher Levels.} When you cast this spell using a spell slot of 3rd level or higher, the damage (both initial and later) increases by 1d4 for each slot level above 2nd.\linebreak
+	\DndSpellHeader
+	{Lightning Arrow}
+	{3rd-level Transmutation}
+	{Bonus Action}
+	{Self}
+	{V, S}
+	{Concentration, up to 1 minute}
+	The next time you make a ranged weapon attack during the spell’s duration, the weapon’s ammunition, or the weapon itself if it’s a thrown weapon, transforms into a bolt of lightning. Make the attack roll as normal. The target takes 4d8 lightning damage on a hit, or half as much damage on a miss, instead of the weapon’s normal damage.\linebreak
+	Whether you hit or miss, each creature within 10 feet of the target must make a Dexterity saving throw. Each of these creatures takes 2d8 lightning damage on a failed save, or half as much damage on a successful one.\linebreak
+	The piece of ammunition or weapon then returns to its normal form.\linebreak
+	\textbf{At Higher Levels.} When you cast this spell using a spell slot of 4th level or higher, the damage for both effects of the spell increases by 1d8 for each slot level above 3rd.\linebreak
+	\DndSpellHeader
+	{Flame Arrows}
+	{3rd-level Transmutation}
+	{Action}
+	{Touch}
+	{V, S}
+	{Concentration, up to 1 hour}
+	You touch a quiver containing arrows or bolts. When a target is hit by a ranged weapon attack using a piece of ammunition drawn from the quiver, the target takes an extra 1d6 fire damage. The spell’s magic ends on the piece of ammunition when it hits or misses, and the spell ends when twelve pieces of ammunition have been drawn from the quiver.\linebreak
+	\textbf{At Higher Levels.} When you cast this spell using a spell slot of 4th level or higher, the number of pieces of ammunition you can affect with this spell increases by two for each slot level above 3rd.\linebreak
+	\DndSpellHeader
+	{Fireball}
+	{3rd-level Evocation}
+	{Action}
+	{150ft}
+	{V, S, M (a tiny ball of bat guano and sulfur)}
+	{Instantaneous}
+	A bright streak flashes from your pointing finger to a point you choose within range then blossoms with a low roar into an explosion of flame. Each creature in a 20-foot radius must make a Dexterity saving throw. A target takes 8d6 fire damage on a failed save, or half as much damage on a successful one. The fire spreads around corners. It ignites flammable objects in the area that aren’t being worn or carried.\linebreak
+	\textbf{At Higher Levels.} When you cast this spell using a spell slot of 4th level or higher, the damage increases by 1d6 for each slot level above 3rd.\linebreak
+	\DndSpellHeader
+	{Phantasmal Killer}
+	{4th-level Illusion}
+	{Action}
+	{120ft}
+	{V, S}
+	{Concentration, up to 1 minute}
+	You tap into the nightmares of a creature you can see within range and create an illusory manifestation of its deepest fears, visible only to that creature.\linebreak
+	The target must make a Wisdom saving throw. On a failed save, the target becomes frightened for the duration. At the end of each of the target’s turns before the spell ends, the target must succeed on a Wisdom saving throw or take 4d10 psychic damage. On a successful save, the spell ends.\linebreak
+	\textbf{At Higher Levels.} When you cast this spell using a spell slot of 5th level or higher, the damage increases by 1d10 for each slot level above 4th.\linebreak
+	\DndSpellHeader
+	{Confusion}
+	{4th-level Enchantment}
+	{Action}
+	{90ft}
+	{V, S, M (three nut shells)}
+	{Concentration, up to 1 minute}
+	This spell assaults and twists creatures’ minds, spawning delusions and provoking uncontrolled actions. Each creature in a 10-foot-radius sphere centered on a point you choose within range must succeed on a Wisdom saving throw when you cast this spell or be affected by it.\linebreak
+	An affected target can’t take reactions and must roll a d10 at the start of each of its turns to determine its behavior for that turn.
+	\begin{itemize} % totaly not a hack
+		\item  1 The creature uses all its movement to move in a random direction. To determine the direction, roll a d8 and assign a direction to each die face. The creature doesn’t take an action this turn.
+		\item 2 - 6 The creature doesn’t move or take actions this turn.
+		\item 7 - 8 The creature uses its action to make a melee attack against a randomly determined creature within its reach. If there is no creature within its reach, the creature does nothing this turn.
+		\item 9 - 10 The creature can act and move normally.
+	\end{itemize}
+	At the end of its turns, an affected target can make a Wisdom saving throw. It it succeeds, this effect ends for that target.\linebreak
+	\textbf{At Higher Levels.} When you cast this spell using a spell slot of 5th level or higher, the radius of the sphere increases by 5 feet for each slot level above 4th.\linebreak
+	\DndSpellHeader
+	{Geas}
+	{5th-level Enchantment}
+	{1 minute}
+	{60ft}
+	{V}
+	{30 days}
+	You place a magical command on a creature that you can see within range, forcing it to carry out some service or refrain from some action or course of activity as you decide.\linebreak
+	If the creature can understand you, it must succeed on a Wisdom saving throw or become charmed by you for the duration. While the creature is charmed by you, it takes 5d10 psychic damage each time it acts in a manner directly counter to your instructions, but no more than once each day. A creature that can’t understand you is unaffected by the spell.\linebreak
+	You can issue any command you choose, short of an activity that would result in certain death. Should you issue a suicidal command, the spell ends. You can end the spell early by using an action to dismiss it. A Remove Curse, Greater Restoration, or Wish spell also ends it.\linebreak
+	\textbf{At Higher Levels}. When you cast this spell using a spell slot of 7th or 8th level, the duration is 1 year. When you cast this spell using a spell slot of 9th level, the spell lasts until it is ended by one of the spells mentioned above.\linebreak
+	\DndSpellHeader
+	{Swift Quiver}
+	{5th-level Transmutation}
+	{Bonus Action}
+	{Touch}
+	{V, S, M (a quiver containing at least one piece of ammunition)}
+	{Concentration, up to 1 minute}
+	You transmute your quiver so it produces an endless supply of nonmagical ammunition, which seems to leap into your hand when you reach for it.\linebreak
+	On each of your turns until the spell ends, you can use a bonus action to make two attacks with a weapon that uses ammunition from the quiver. Each time you make such a ranged attack, your quiver magically replaces the piece of ammunition you used with a similar piece of nonmagical ammunition. Any pieces of ammunition created by this spell disintegrate when the spell ends. If the quiver leaves your possession, the spell ends.\linebreak
+}
+\def\FullFeature{
+	\subsection{Mage Archery}
+	You are able to cast spells with a ranged weapon. You can use a ranged weapon as an arcane focus to avoid material costs, unless they have a gold cost or are consumed during the spell. In order to cast a spell, you need to use one of your spellslots. You start with 2 level one spellslots and gain more on higher levels. You regain your used spellslots at the end of a long rest. You can use your weapon to extend the range of a spell up to the range of your weapon (The spellsniper and sharpshooter feat does not add to this bonus). This does not count for spells with the range self. Also keep in mind, that a arrow eventually gives away your position. Spells with a direct attack are casted directly form the weapon, on spells with a area effect, a condition in a area or touch range a arrow is fired and the spell acts like casted at the point, where the arrow hits a target, ground, wall, object or even the air. If you cast a spell with a ranged weapon, over a distance greater, than the normal range of this weapon, it is handled the same, as if you would make a weapon attack over your normal range. Casting a spell this way, you can not exceed the maximum range of your weapon. Intelligence is your spellcastingability for your mage archer spells, since you learn your spells through dedicated study and memorization. You use your Intelligence whenever a spell refers to your spellcasting ability. In addition, you use your Intelligence modifier when setting the saving throw DC for a mage archer spell you cast and when making an attack roll with one.\linebreak
+	\textbf{Spell save D}C = 8 + your proficiency bonus + your Intelligence modifier\linebreak
+	\textbf{Spell attack modifier} = your proficiency bonus + your Intelligence modifier\linebreak
+	\subsection{Casting Spells}
+	You can know a number of mage archer spells from your spelllist equal to your Intelligence modifier + your mage archer level (minimum of one spell). The spells must be of a level for which you have spell slots. Every time you gain a new Level, you can change the spells you know.
+	\subsection{Ritual Casting}
+	You can cast a mage archer spell as ritual if that spell has the ritual tag.
+	\subsection{Cantrips}
+	Starting at 1st level, you know two cantrips of your choice from the mage archer spell list. You learn additional mage archer cantrips of your choice at higher levels, as shown in the Cantrips Known column of the Mage Archer table.
+	\subsection{Archery}
+	Starting at 2nd level you gain a +2 bonus to attack rolls you make with ranged weapons.
+	\subsection{Extra Attack}
+	Starting at 10th level you can attack twice, instead of once on your turn. But keep in mind, that you can not cast 2 Spells or Cantrips in one round.
+	\subsection{Eldritch Arrow}
+	Starting at 1st level you learn to use your weapons efficient. Whenever you make an attack with a ranged weapon, you can create an magic arrow out of nothing. This arrow changes the damage type from your ranged weapon for this attack to force damage.
+	\subsection{Eldritch Invocation}
+	Starting at 6th level you can choose a Eldritch Invocation, which you learn. You can choose an additional Invocation on level 14. Whenever you gain a new level you can switch one of your Invocation with a new one. You may choose invocations, which requires pact of the blade or pact of the chain. Choose one of your ranged weapons, which is treated as a pact weapon, in terms of bonuses from invocations.
+	\subsection{Darkvision}
+	You can see in dim light within 60 ft of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray.
+	\subsection{Wolf Form} As a Bonus Action you can change between your humanoid form and your wolf form. In your wolf form, you can not use any weapon or shield, only other wolfs and wolf-lycanthropics will understand you and your armor does not count on your ac, you have instead a ac of 12 + your dexterity modifier.
+	\subsection{Wolf Sense.} In your wolf form, you have an advantage in perception checks that rely on hearing or smelling.
+	\subsection{Bite} In your wolf form, your bite acts as a natural weapon, which you can use to make unarmed strikes. If you hit with it, you deal piercing damage equal to 1d6 + your strength modifier instead of the normal damage.
+	\subsection{Fey Ancestry.} In your humanoid form you have advantage on saving throws against being charmed and magic can't put you to sleep.
+	\subsection{Trance.} In your humanoid form you do not sleep. Instead you meditate deeply, remaining semi-conscious for 4 hours a day. After resting this way you benefit from the same benefit a human would from 8 hours of sleep.
+	
+	%todo background feature
+	\subsection{Wanderer}
+	You have an excellent memory for maps and geography, and you can always recall the general layout of terrain, settlements, and other features around you. In addition you can find food and fresh water for yourself and up to five other people each day, provided that the land offers berries, small game, water and so forth.
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Document%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+	\begin{minipage}[t]{.5\linewidth} % head left
+		\begin{tabularx}{\textwidth}{XXX}
+			\multicolumn{3}{X}{\Fontauri\Name}\\\hline
+			\multicolumn{3}{X}{\tiny{Character Name}}\\
+			\AC & \Initiative & \Speed {\small$^{ft}$}\\\hline
+			\tiny{AC}&\tiny{Initiative}&\tiny{Speed}\\
+			\HitDice&\Level&\\\hline
+			\tiny{Hit Dice}&\tiny{Total}&\tiny{Used}\\
+			\MaxHP&&\\\hline
+			\tiny{Max Hp}&\tiny{Hp}&\tiny{Temp Hp}\\
+			\Prof&&\\\hline
+			\tiny{Proficiency Bonus}
+		\end{tabularx}
+	\end{minipage}%
+	\begin{minipage}[t]{.5\linewidth} % head right
+		\strut\vspace*{\offset\baselineskip}\newline %correct offset because of a fontsize and b minipage
+		\begin{tabularx}{\textwidth}{XXX}
+			\CharaClass\space\Level &\Background &\Playername\\\hline
+			\tiny{Class \& Level}	& \tiny{Background}	&\tiny{Player Name}\\
+			\Race &\Alignment &\EP\\\hline
+			\tiny{Race}	& \tiny{Alignment}	&\tiny{EP}\\
+		\end{tabularx}\vspace*{.125cm}\\
+		\Fontauri\large{
+			\begin{tabularx}{\linewidth}{XXXXXX}
+				Str & Dex & Con & Int & Wis & Cha \\ \hline
+				\Str & \Dex & \Con & \Int & \Wis & \Cha\\
+				\ifthenelse{\equal{\firstStat}{Str}}{$\bullet$}{\ifthenelse{\equal{\secondStat}{Str}}{$\bullet$}{}} &
+				\ifthenelse{\equal{\firstStat}{Dex}}{$\bullet$}{\ifthenelse{\equal{\secondStat}{Dex}}{$\bullet$}{}} &
+				\ifthenelse{\equal{\firstStat}{Con}}{$\bullet$}{\ifthenelse{\equal{\secondStat}{Con}}{$\bullet$}{}} &
+				\ifthenelse{\equal{\firstStat}{Int}}{$\bullet$}{\ifthenelse{\equal{\secondStat}{Int}}{$\bullet$}{}} &
+				\ifthenelse{\equal{\firstStat}{Wis}}{$\bullet$}{\ifthenelse{\equal{\secondStat}{Wis}}{$\bullet$}{}} &
+				\ifthenelse{\equal{\firstStat}{Cha}}{$\bullet$}{\ifthenelse{\equal{\secondStat}{Cha}}{$\bullet$}{}}\\
+				\StrMod & \DexMod & \ConMod & \IntMod & \WisMod & \ChaMod\\
+				\StrSave & \DexSave & \ConSave & \IntSave & \WisSave & \ChaSave
+			\end{tabularx}
+	}
+	\end{minipage}\vspace*{.25cm}\\
+	\begin{minipage}[t]{.25\linewidth}\small
+		{\Large Skills}\\
+		\textcolor{titlered}{\large Strength \StrMod \ifthenelse{\equal{\firstStat}{Str}}{$\bullet$}{\ifthenelse{\equal{\secondStat}{Str}}{$\bullet$}{}}}\\
+		\begin{tabularx}{\textwidth}{lXr}
+			\ifthenelse{\equal{\AthleticsProf}{1}}{$\bullet$}{}&Athletics&\Athletics\\
+		\end{tabularx}
+		\textcolor{titlered}{\large Constitution \ConMod \ifthenelse{\equal{\firstStat}{Con}}{$\bullet$}{\ifthenelse{\equal{\secondStat}{Con}}{$\bullet$}{}}}\\
+		\textcolor{titlered}{\large Dexterity \DexMod \ifthenelse{\equal{\firstStat}{Dex}}{$\bullet$}{\ifthenelse{\equal{\secondStat}{Dex}}{$\bullet$}{}}}\\
+		\begin{tabularx}{\textwidth}{lXr}
+			\ifthenelse{\equal{\AcrobaticsProf}{1}}{$\bullet$}{}&Acrobatics&\Acrobatics\\
+			\ifthenelse{\equal{\SleightOfHandProf}{1}}{$\bullet$}{}&Sleight of Hand&\SleightOfHand\\
+			\ifthenelse{\equal{\StealthProf}{1}}{$\bullet$}{}&Stealth&\Stealth\\
+		\end{tabularx}
+		\textcolor{titlered}{\large Intelligence \IntMod \ifthenelse{\equal{\firstStat}{Int}}{$\bullet$}{\ifthenelse{\equal{\secondStat}{Int}}{$\bullet$}{}}}\\
+		\begin{tabularx}{\textwidth}{lXr}
+			\ifthenelse{\equal{\ArcanaProf}{1}}{$\bullet$}{}&Arcana&\Arcana\\
+			\ifthenelse{\equal{\HistoryProf}{1}}{$\bullet$}{}&History&\History\\
+			\ifthenelse{\equal{\InvestigationProf}{1}}{$\bullet$}{}&Investigation&\Investigation\\
+			\ifthenelse{\equal{\NatureProf}{1}}{$\bullet$}{}&Nature&\Nature\\
+			\ifthenelse{\equal{\ReligionProf}{1}}{$\bullet$}{}&Religion&\Religion\\
+		\end{tabularx}
+		\textcolor{titlered}{\large Wisdom \WisMod \ifthenelse{\equal{\firstStat}{Wis}}{$\bullet$}{\ifthenelse{\equal{\secondStat}{Wis}}{$\bullet$}{}}}\\
+		\begin{tabularx}{\textwidth}{lXr}
+			\ifthenelse{\equal{\AnimalHandlingProf}{1}}{$\bullet$}{}&Animal Handling&\AnimalHandling\\
+			\ifthenelse{\equal{\InsightProf}{1}}{$\bullet$}{}&Insight&\Insight\\
+			\ifthenelse{\equal{\MedicineProf}{1}}{$\bullet$}{}&Medicine&\Medicine\\
+			\ifthenelse{\equal{\PerceptionProf}{1}}{$\bullet$}{}&Perception&\Perception\\
+			\ifthenelse{\equal{\SurvivalProf}{1}}{$\bullet$}{}&Survival&\Survival\\
+		\end{tabularx}
+		\textcolor{titlered}{\large Charisma \ChaMod \ifthenelse{\equal{\firstStat}{Cha}}{$\bullet$}{\ifthenelse{\equal{\secondStat}{Cha}}{$\bullet$}{}}}\\
+		\begin{tabularx}{\textwidth}{lXr}
+    		\ifthenelse{\equal{\DeceptionProf}{1}}{$\bullet$}{}&Deception&\Deception\\
+			\ifthenelse{\equal{\IntimidationProf}{1}}{$\bullet$}{}&Intimidation&\Intimidation\\
+			\ifthenelse{\equal{\PerformanceProf}{1}}{$\bullet$}{}&Performance&\Performance\\
+			\ifthenelse{\equal{\PersuasionProf}{1}}{$\bullet$}{}&Persuasion&\Persuasion\\
+		\end{tabularx}
+		\textcolor{titlered}{\large Weapons}\linebreak
+		\WeaponEquipment
+	\end{minipage}%
+	\begin{minipage}[t]{.25\linewidth}\small
+		{\Large Proficiencies}
+		\textcolor{titlered}{\large Weapons}\\
+		\WeaponProf
+		\textcolor{titlered}{\large Armor}\\
+		\ArmorProf
+		\textcolor{titlered}{\large Language}\\
+		\LanguageProf
+		\textcolor{titlered}{\large Tools}\\
+		\ToolProf
+	\end{minipage}%
+	\begin{minipage}[t]{.5\linewidth}\raggedleft\small
+		{\Large Features}\\
+		\textcolor{titlered}{\large \Background}\\
+		\BackgroundFeature
+		\textcolor{titlered}{\large \Race}\\
+		\RaceFeature
+		\textcolor{titlered}{\large \CharaClass}\\
+		\ClassFeature
+	\end{minipage}\\
+	\begin{minipage}[t][\textheight]{.5\linewidth}\normalsize		{\Large Equipment}\\
+		\Equipment
+	\end{minipage}%
+	\begin{minipage}[t][\textheight]{.5\linewidth}\normalsize
+		\begin{tabularx}{\textwidth}{XXX}
+			\PP&\GP&\ElP\\\hline
+			\tiny{PP}&\tiny{GP}	&\tiny{EP}\\
+			\SP&\CP&\\\hline
+			\tiny{SP}& \tiny{CP}&
+		\end{tabularx}\vspace*{.25cm}\\
+		\includegraphics[width=\linewidth]{Character.png}\vspace*{.25cm}\\
+		\begin{tabularx}{\textwidth}{XXX}
+			\Age &\Height &\Weight\\\hline
+			\tiny{Age}	& \tiny{Height}	&\tiny{Weight}\\
+			\Eyes &\Skin &\Hair\\\hline
+			\tiny{Eyes}	& \tiny{Skin}	&\tiny{Hair}\\
+		\end{tabularx}
+	\end{minipage} %
+	{\huge Spellcasting}
+	\begin{center}\normalsize
+		\begin{tabularx}{\textwidth}{XXX}
+			\SpellAbility &\SpellAtk &\SpellSaveDC\\\hline
+			\tiny{Spellcasting Ability}	& \tiny{Spell Attack Bonus}	&\tiny{Spell Save DC}
+		\end{tabularx}
+		\begin{tabularx}{\linewidth}{XXXXXXXXX}
+			1&2&3&4&5&6&7&8&9\\\hline
+			\FirstLevelSlots&
+			\SecondLevelSlots&
+			\ThirdLevelSlots&
+			\FourthLevelSlots&
+			\FifthLevelSlots&
+			\SixthLevelSlots&
+			\SeventhLevelSlots&
+			\EightLevelSlots&
+			\NinthLevelSlots
+		\end{tabularx}
+	\end{center}
+	\begin{minipage}[t]{.5\linewidth}\scriptsize
+		\textcolor{titlered}{\large Cantrips}\\
+		\Cantrips
+		\textcolor{titlered}{\large 1st Level}\\
+		\FirstLevelSpells
+		\textcolor{titlered}{\large 2nd Level}\\
+		\SecondLevelSpells
+	\end{minipage}%
+	\begin{minipage}[t]{.5\linewidth}\scriptsize
+		\textcolor{titlered}{\large 3th Level}\\
+		\ThirdLevelSpells
+		\textcolor{titlered}{\large 4th Level}\\
+		\FourthLevelSpells
+		\textcolor{titlered}{\large 5th Level}\\
+		\FifthLevelSpells
+	\end{minipage} %
+	\newpage
+	{\huge Features}
+	\FullFeature
+	\vfil\pagebreak
+	{\huge Spells}
+	\FullSpells
+\end{document}

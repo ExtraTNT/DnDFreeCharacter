@@ -1,0 +1,686 @@
+\documentclass[a4paper,10pt,bg=print]{dndbook} %a4, 10pt, bg=print / full
+\usepackage[english]{babel} %language
+\usepackage[utf8]{inputenc} %lovely utf-8
+\usepackage{graphicx} %images
+\usepackage{array} %allways use this shit, idk why
+\usepackage{tikz} %draw stuff
+\usepackage{ifthen} %draw stuff
+\usetikzlibrary{calc,fadings} %draw stuff
+\usepackage{xspace} %usefull idk, allways import this stuff
+\usepackage{setspace} %don't ask, kind of like it...
+\usepackage{pgfplots}
+\usepackage{tabularx} % table
+\usepackage[singlelinecheck=false]{caption} %idk dndbook...
+\usepackage{stfloats} %idk dndbook
+\usepackage{yfonts}
+\usepackage{aurical}
+\usepackage[T1]{fontenc}
+\usepackage{tabu}
+\usepackage{longtable}
+
+\graphicspath{ {./images/} }
+
+\pagestyle{empty} % no footer
+
+\geometry { % paper type + spacing
+	a4paper,
+	top=2cm,
+	bottom=2cm,
+	left=2cm,
+	right=2cm
+}
+\newcommand*\circled[2][2pt]{
+	\tikz
+	[
+		decoration={
+			random steps,
+			amplitude=1pt,
+			segment length=5pt
+		},
+		baseline=(char.base)
+	]{
+		\node
+		[
+			decorate,
+			shape=circle,
+			draw,
+			inner sep=#1-1pt
+		]
+		(char) {#2};
+	}
+}
+
+\singlespacing
+\makeatletter
+
+\def \license {GNU Free Documentation License (https://www.gnu.org/licenses/fdl-1.3)}
+\def \author {Sven Hugi}%if you edit this document, add your name... <3
+
+%highlighting with some random effect -> looks handmade and i love it... you can use this in you texts
+\newcommand\hl[2][yellow]{
+	\begin{tikzpicture}[
+	baseline,
+	decoration={random steps,amplitude=1pt,segment length=15pt},
+	outer sep=-15pt, inner sep = 0pt
+	]
+	\node[decorate,rectangle,fill=#1,anchor=text]{#2\xspace};
+	\end{tikzpicture}
+}
+% colors:
+
+% bgtan
+% bgtan2018
+% pagegold
+
+% titlered
+% titlegold
+% rulered
+% contourgray
+
+% BrGreen
+% PhbLightGreen
+% PhbLightCyan
+% PhbMauve
+% PhbTan
+% DmgLavender
+% DmgCoral
+% DmgSlateGray
+% DmgLilac
+
+%config:
+\def\Name{Celni}
+\def\offset{-5.67} % change, if the line at the top is staggered -> -5.67 is the default value -> should work in ~100% of the cases
+
+\def\CharaClass{Warlock}
+\def\Level{10}
+\def\Background{Hunted one}
+\def\Playername{}
+\def\Race{Shadar-Kai}
+\def\Alignment{Neutral}
+\def\EP{-}
+
+\def\Speed{30}
+\def\Initiative{+3}
+\def\AC{14 (16)}
+\def\Prof{+4}
+
+\def\MaxHP{68}
+\def\HitDice{d8}
+
+\def\Str{7}
+\def\Dex{16}
+\def\Con{15}
+\def\Int{13}
+\def\Wis{9}
+\def\Cha{20}
+
+\def\StrMod{-2}
+\def\DexMod{+3}
+\def\ConMod{+2}
+\def\IntMod{+1}
+\def\WisMod{-1}
+\def\ChaMod{+5}
+
+\def\StrSave{-2}
+\def\DexSave{+3}
+\def\ConSave{+2}
+\def\IntSave{+1}
+\def\WisSave{+3}
+\def\ChaSave{+9}
+
+% save profs
+\def\firstStat{Wis}
+\def\secondStat{Cha}
+
+% modifiers for skills (add prof bonus if prof)
+%str
+\def\Athletics{-2}
+%dex
+\def\Acrobatics{+3}
+\def\SleightOfHand{+3}
+\def\Stealth{+7}
+%int
+\def\Arcana{+1}
+\def\History{+5}
+\def\Investigation{+5}
+\def\Nature{+1}
+\def\Religion{+1}
+%wis
+\def\AnimalHandling{-1}
+\def\Insight{-1}
+\def\Medicine{-1}
+\def\Perception{-1}
+\def\Survival{+3}
+%cha
+\def\Deception{+9}
+\def\Intimidation{+5}
+\def\Performance{+5}
+\def\Persuasion{+5}
+
+% prof (0/1)
+\def\AthleticsProf{0}
+%dex
+\def\AcrobaticsProf{0}
+\def\SleightOfHandProf{0}
+\def\StealthProf{1}
+%int
+\def\ArcanaProf{0}
+\def\HistoryProf{1}
+\def\InvestigationProf{1}
+\def\NatureProf{0}
+\def\ReligionProf{0}
+%wis
+\def\AnimalHandlingProf{0}
+\def\InsightProf{0}
+\def\MedicineProf{0}
+\def\PerceptionProf{0}
+\def\SurvivalProf{1}
+%cha
+\def\DeceptionProf{1}
+\def\IntimidationProf{0}
+\def\PerformanceProf{0}
+\def\PersuasionProf{0}
+
+\def\Age{243}
+\def\Height{5'4"}
+\def\Weight{100lb}
+\def\Skin{Pale}
+\def\Eyes{Black}
+\def\Hair{Black}
+
+\def\SpellAbility{Cha}
+\def\SpellAtk{+9}
+\def\SpellSaveDC{17}
+
+\def\FirstLevelSlots{}
+\def\SecondLevelSlots{}
+\def\ThirdLevelSlots{}
+\def\FourthLevelSlots{}
+\def\FifthLevelSlots{2}
+\def\SixthLevelSlots{}
+\def\SeventhLevelSlots{}
+\def\EightLevelSlots{}
+\def\NinthLevelSlots{}
+
+\def\Cantrips{
+	\small
+	\begin{tabularx}{\linewidth}{lX}
+		\textbf{Eldritch Blast}	& act, 120ft, VS, 2 x 1d10 force\\
+		\textbf{Mage Hand}		& act, 30ft, VS, 1 min\\
+		\textbf{Minor Illusion}	& act, 30ft, SM, 1 min, 5-foot cube\\
+		\textbf{Toll the Dead}	& act, 60ft, VS, wis save, 2d8 / 2d12 necrotic\\
+	\end{tabularx}
+}
+\def\FirstLevelSpells{
+	\begin{tabularx}{\linewidth}{lX}
+		\textbf{Hellish Rebuke}	& reaction, 60ft, VS, dex save, 6d10 fire\\
+	\end{tabularx}
+}
+\def\SecondLevelSpells{
+	\begin{tabularx}{\linewidth}{lX}
+		\textbf{Flock of Familiars}	& 1 min, Touch, VS, 1 h, 6, 1 mile\\
+	\end{tabularx}
+}
+\def\ThirdLevelSpells{
+	\small
+	\begin{tabularx}{\linewidth}{lX}
+		\textbf{Counterspell}		& reaction, 60ft, S, 5 or lower, dc 10 + spelllevel\\
+		\textbf{Remove Curse}		& act, touch, VS\\
+		\textbf{Vampiric Touch}		& act, VS, con 1min, 5d6 necrotic, half regain\\
+	\end{tabularx}
+}
+\def\FourthLevelSpells{
+	\begin{tabularx}{\linewidth}{lX}
+		\textbf{Blight}				& act, 30ft, VS, con save, 9d8 necrotic, plant magical disadv full dmg, nonmagical dies\\
+		\textbf{Phantasmal Killer}	& act, 120ft, VS, con 1 min, 1/round wis save 5d10 psychic frightened\\
+	\end{tabularx}
+}
+\def\FifthLevelSpells{
+	\begin{tabularx}{\linewidth}{lX}
+		\textbf{Danse Macabre}			& act, 60ft, VS, con 1h, small / medium, zombie / skeleton +8 atk and dmg\\
+		\textbf{Mislead}				& act, S, con 1h, double + invisibility, 2x speed, sense\\
+		\textbf{Negative Energy Flood}	& act, 60ft, VM, con save, 5d12, if killed zombie, undead temp hp half 5d12\\
+	\end{tabularx}
+}
+\def\FullSpells{
+	\DndSpellHeader
+	{Eldritch Blast}
+	{Evocation-Cantrip}
+	{Action}
+	{120ft}
+	{V, S}
+	{Instantaneous}
+	A beam of crackling energy streaks toward a creature within range. Make a ranged spell attack against the target. On a hit, the target takes 1d10 force damage.\linebreak
+	\textbf{At Higher Levels.} The spell creates more than one beam when you reach higher levels: two beams at 5th level, three beams at 11th level, and four beams at 17th level. You can direct the beams at the same target or at different ones. Make a separate attack roll for each beam.\linebreak
+	\DndSpellHeader
+	{Mage Hand}
+	{Conjuration-Cantrip}
+	{Action}
+	{30ft}
+	{V, S}
+	{1 minute}
+	A spectral, floating hand appears at a point you choose within range. The hand lasts for the duration or until you dismiss it as an action. The hand vanishes if it is ever more than 30 feet away from you or if you cast this spell again.\linebreak
+	You can use your action to control the hand. You can use the hand to manipulate an object, open an unlocked door or container, stow or retrieve an item from an open container, or pour the contents out of a vial. You can move the hand up to 30 feet each time you use it.\linebreak
+	The hand can’t attack, activate magical items, or carry more than 10 pounds.\linebreak
+	\DndSpellHeader
+	{Minor Illusion}
+	{Illusion-Cantrip}
+	{Action}
+	{30ft}
+	{S, M (a bit of fleece)}
+	{1 minute}
+	You create a sound or an image of an object within range that lasts for the duration. The illusion also ends if you dismiss it as an action or cast this spell again.\linebreak
+	If you create a sound, its volume can range from a whisper to a scream. It can be your voice, someone else’s voice, a lion’s roar, a beating of drums, or any other sound you choose. The sound continues unabated throughout the duration, or you can make discrete sounds at different times before the spell ends.\linebreak
+	If you create an image of an object—such as a chair, muddy footprints, or a small chest—it must be no larger than a 5-foot cube. The image can’t create sound, light, smell, or any other sensory effect. Physical interaction with the image reveals it to be an illusion, because things can pass through it.\linebreak
+	If a creature uses its action to examine the sound or image, the creature can determine that it is an illusion with a successful Intelligence (Investigation) check against your spell save DC. If a creature discerns the illusion for what it is, the illusion becomes faint to the creature.\linebreak
+	\DndSpellHeader
+	{Toll the Dead}
+	{Necromancy-Cantrip}
+	{Action}
+	{60ft}
+	{V, S}
+	{Instantaneous}
+	You point at one creature you can see within range, and the sound of a dolorous bell fills the air around it for a moment. The target must succeed on a Wisdom saving throw or take 1d8 necrotic damage. If the target is missing any of its hit points, it instead takes 1d12 necrotic damage.\linebreak
+	\textbf{At Higher Levels.} The spell’s damage increases by one die when you reach 5th level (2d8 or 2d12), 11th level (3d8 or 3d12), and 17th level (4d8 or 4d12).\linebreak
+	\DndSpellHeader
+	{Hellish Rebuke}
+	{1st-level Evocation}
+	{Reaction, which you take when you are damaged by a creature within 60 feet of you that you can see}
+	{60ft}
+	{V, S}
+	{Instantaneous}
+	You point your finger, and the creature that damaged you is momentarily surrounded by hellish flames. The creature must make a Dexterity saving throw. It takes 2d10 fire damage on a failed save, or half as much damage on a successful one.\linebreak
+	\textbf{At Higher Levels.} When you cast this spell using a spell slot of 2nd level or higher, the damage increases by 1d10 for each slot level above 1st.\linebreak
+	\DndSpellHeader
+	{Flock of Familiars}
+	{2nd-level Conjuration}
+	{1 minute}
+	{Touch}
+	{V, S}
+	{1 hour}
+	You temporarily summon three familiars – spirits that take animal forms of your choice. Each familiar uses the same rules and options for a familiar conjured by the Find Familiar spell. All the familiars conjured by this spell must be the same type of creature (celestials, fey, or fiends; your choice). If you already have a familiar conjured by the Find Familiar spell or similar means, then one fewer familiars are conjured by this spell.\linebreak
+	Familiars summoned by this spell can telepathically communicate with you and share their visual or auditory senses while they are within 1 mile of you.\linebreak
+	When you cast a spell with a range of touch, one of the familiars conjured by this spell can deliver the spell, as normal. However, you can cast a touch spell through only one familiar per turn.\linebreak
+	At Higher Levels. When you cast this spell using a spell slot of 3rd level or higher, you conjure an additional familiar for each slot level above 2nd.\linebreak
+	\DndSpellHeader
+	{Counterspell}
+	{3rd-level Abjuration}
+	{Reaction, which you take when you see a creature within 60 feet of you casting a spell}
+	{60ft}
+	{S}
+	{Instantaneous}
+	You attempt to interrupt a creature in the process of casting a spell. If the creature is casting a spell of 3rd level or lower, its spell fails and has no effect. If it is casting a spell of 4th level or higher, make an ability check using your spellcasting ability. The DC equals 10 + the spell’s level. On a success, the creature’s spell fails and has no effect.\linebreak
+	\textbf{At Higher Levels.} When you cast this spell using a spell slot of 4th level or higher, the interrupted spell has no effect if its level is less than or equal to the level of the spell slot you used.\linebreak
+	\DndSpellHeader
+	{Remove Curse}
+	{3rd-level Abjuration}
+	{Action}
+	{Touch}
+	{V, S}
+	{Instantaneous}
+	At your touch, all curses affecting one creature or object end. If the object is a cursed magic item, its curse remains, but the spell breaks its owner’s attunement to the object so it can be removed or discarded.\linebreak
+	\vfill\pagebreak
+	\DndSpellHeader
+	{Vampiric Touch}
+	{3rd-level Necromancy}
+	{Action}
+	{Self}
+	{V, S}
+	{Concentration, up to 1 minute}
+	The touch of your shadow-wreathed hand can siphon force from others to heal your wounds. Make a melee spell attack against a creature within your reach. On a hit, the target takes 3d6 necrotic damage, and you regain hit points equal to half the amount of necrotic damage dealt. Until the spell ends, you can make the attack again on each of your turns as an action.\linebreak
+	\textbf{At Higher Levels.} When you cast this spell using a spell slot of 4th level or higher, the damage increases by 1d6 for each slot level above 3rd.\linebreak
+	\DndSpellHeader
+	{Blight}
+	{4th-level Necromancy}
+	{Action}
+	{30ft}
+	{V, S}
+	{Instantaneous}
+	Necromantic energy washes over a creature of your choice that you can see within range, draining moisture and vitality from it. The target must make a Constitution saving throw. The target takes 8d8 necrotic damage on a failed save, or half as much damage on a successful one. This spell has no effect on undead or constructs.\linebreak
+	If you target a plant creature or a magical plant, it makes the saving throw with disadvantage, and the spell deals maximum damage to it. If you target a nonmagical plant that isn’t a creature, such as a tree or shrub, it doesn’t make a saving throw; it simply withers and dies.\linebreak
+	\textbf{At Higher Levels.} When you cast this spell using a spell slot of 5th level or higher, the damage increases by 1d8 for each slot level above 4th.\linebreak
+	\DndSpellHeader
+	{Phantasmal Killer}
+	{4th-level Illusion}
+	{Action}
+	{120ft}
+	{V, S}
+	{Concentration, up to 1 minute}
+	You tap into the nightmares of a creature you can see within range and create an illusory manifestation of its deepest fears, visible only to that creature.\linebreak
+	The target must make a Wisdom saving throw. On a failed save, the target becomes frightened for the duration. At the end of each of the target’s turns before the spell ends, the target must succeed on a Wisdom saving throw or take 4d10 psychic damage. On a successful save, the spell ends.\linebreak
+	\textbf{At Higher Levels.} When you cast this spell using a spell slot of 5th level or higher, the damage increases by 1d10 for each slot level above 4th\linebreak
+	\DndSpellHeader
+	{Danse Macabre}
+	{5th-level Necromancy}
+	{Action}
+	{60ft}
+	{V, S}
+	{Concentration, up to 1 hour}
+	Threads of dark power leap from your fingers to pierce up to five Small or Medium corpses you can see within range. Each corpse immediately stands up and becomes undead. You decide whether it is a zombie or a skeleton (the statistics for zombies and skeletons are in the Monster Manual), and it gains a bonus to its attack and damage rolls equal to your spellcasting ability modifier. You can use a bonus action to mentally command the creatures you make with this spell, issuing the same command to all of them. To receive the command, a creature must be within 60 feet of you. You decide what action the creatures will take and where they will move during their next turn, or you can issue a general command, such as to guard a chamber or passageway against your foes. If you issue no commands, the creatures do nothing except defend themselves against hostile creatures. Once given an order, the creatures continue to follow it until their task is complete.\linebreak
+	The creatures are under your control until the spell ends, after which they become inanimate once more.\linebreak
+	\textbf{At Higher Levels.} When you cast this spell using a spell slot‘ of 6th level or higher, you animate up to two additional corpses for each slot level above 5th.\linebreak
+	\DndSpellHeader
+	{Mislead}
+	{5th-level Illusion}
+	{Action}
+	{Self}
+	{S}
+	{Concentration, up to 1 hour}
+	You become invisible at the same time that an illusory double of you appears where you are standing. The double lasts for the duration, but the invisibility ends if you attack or cast a spell.\linebreak
+	You can use your action to move your illusory double up to twice your speed and make it gesture, speak, and behave in whatever way you choose.\linebreak
+	You can see through its eyes and hear through its ears as if you were located where it is. On each of your turns as a bonus action, you can switch from using its senses to using your own, or back again. While you are using its senses, you are blinded and deafened in regard to your own surroundings.\linebreak
+	\DndSpellHeader
+	{Negative Energy Flood}
+	{5th-level Necromancy}
+	{Action}
+	{60ft}
+	{V, M (a broken bone and a square of black silk)}
+	{Instantaneous}
+	You send ribbons of negative energy at one creature you can see within range. Unless the target is undead, it must make a Constitution saving throw, taking 5d12 necrotic damage on a failed save, or half as much damage on a successful one. A target killed by this damage rises up as a zombie at the start of your next turn. The zombie pursues whatever creature it can see that is closest to it. Statistics for the zombie are in the Monster Manual. If you target an undead with this spell, the target doesn’t make a saving throw. Instead, roll 5d12. The target gains half the total as temporary hit points.\linebreak\linebreak	
+}
+\def\Description{
+	
+}
+\def\WeaponEquipment{
+		\textbf{Dagger}\\
+		\raggedleft
+		 +7 1d4 + 3 Piercing\\
+		Light, Finesse, thrown (20/60)\\
+		\raggedright
+		\textbf{Spiked Chain}\\
+		\raggedleft
+		+10 2d4 + 6 Slashing\\
+		Light, Finesse, Two-Handed, Special, Ranged (10)\\
+		\raggedright
+		\textbf{Special} Hit every creature 10ft radius 1d4 slashing, single attacks if one miss, all after also miss.\linebreak
+		\textbf{Special} After attack bonus action for second attack 1d4 slashing one creature. If previous attack not hit 2d4 slashing.
+}
+\def\FullSpecial{
+	\begin{longtabu}{lX}
+		\textbf{Spiked Chain Multi-Attack}	& You can use you attack to hit every creature in a 10ft radius and deal 1d4 slashing damage. Roll a atack for every creature, if you miss on one, every following misses to.\\\hline
+		\textbf{Spiked Chain Bonus-Attack}	& After using your Attack you can use your Bonus Action to Attack a second time and do 1d4 Slashing Damage on one Creature. If your previous Attack not hit, you can instead deal 2d4 Slashing Damage\\\hline	
+	\end{longtabu}
+}
+\def\WeaponProf{
+	\begin{itemize}
+		\item Spiked Chain
+		\item Simple Weapons
+		\item Martial Weapons
+	\end{itemize}
+}
+\def\ArmorProf{
+	\begin{itemize}
+		\item Light Armor
+		\item Medium Armor
+		\item Shields
+	\end{itemize}
+}
+\def\LanguageProf{
+	\begin{itemize}
+		\item Common
+		\item Elven
+		\item Netherese
+		\item Undercommon
+	\end{itemize}
+}
+\def\ToolProf{
+	\begin{itemize}
+		\item none
+	\end{itemize}
+}
+\def\ClassFeature{
+	\begin{tabularx}{\textwidth}{lX}
+		\textbf{Pact Magic}			& short / long rest\\
+		\textbf{Pact of the Blade}	& act create, macigal, 5ft 1 min, dismiss or recast, 1h ritual.\\
+		\textbf{Hexblade's Curse}	& bonus act, 30ft, 1 min, prof bonus to atk dmg, crit 19, 20, lvl+cha hp regain, 1/short rest\\
+		\textbf{Hex Warrior}		& 1 weapon / long rest (not 2 handet) + pact weapon, cha for atk\\
+		\textbf{Accursed Specter}	& 1 / long rest, humanoid, while slaying, rise spirit (tmp hp = $\frac{1}{2}$ lvl), obeys, atk bonus cha\\
+		\textbf{Armor of Hex}		& react, Hexblade's Curse, miss if d6 $>=$ 4\\
+	\end{tabularx}
+	
+	\textcolor{titlered}{\large Evocations}
+	\begin{tabularx}{\textwidth}{lX} %5
+		\textbf{Improved Pact Weapon}	& focus, +1, bow\\
+		\textbf{Thirsting Blade}		& 2 attacks\\
+		\textbf{Fiendish Vigor}			& False Life lvl 1\\
+		\textbf{Devil's Sight}			& 120ft\\
+		\textbf{Armor of Shadows}		& Mage Armor self\\
+		\textbf{Eldritch Mind}			& adv concentration save\\
+	\end{tabularx}
+	\textcolor{titlered}{\large Feats}
+		\begin{tabularx}{\textwidth}{lX} %5
+		\textbf{Eldritch Adept}	& +1 Evocation\\
+	\end{tabularx}
+}
+\def\RaceFeature{
+	\begin{tabularx}{\textwidth}{lX}
+		\textbf{Darkvision}		& 60ft\\
+		\textbf{Fey Ancestry}	& adv being charmed, magic can't put to sleep.\\
+		\textbf{Eyes of Shadow}	& adv detecting illusion (Magic), see throug friendly shadar-kais darkness and no adv by hiding only in darkness\\
+		\textbf{Shadow Curse}	& dc 15 will, can't raised from the dead or resurrected, on Plane of Shadow greater restoration, Material Plane only wish or miracle, remove curse does nothing\\
+	\end{tabularx}
+}
+\def\BackgroundFeature{
+	\begin{tabularx}{\textwidth}{lX}
+		\textbf{Heart of Darkness}	& People try to help you.\\
+	\end{tabularx}
+}
+\def\FullFeature{
+	\begin{longtabu}{lX}
+		\textbf{Heart of Darkness}		& Either creature or any other character those who’re looking or do look into your eyes can have a capacity to see that you’ve faced unimaginable horror and which you’re no longer stranger to the darkness. Like though they might scare or fear you, commoners will extend you to every courtesy and do their utmost to help you. Unless or until you have shown yourself as a dangareous to them but they even will take the up the arms to fight along side you, so should you find yourself facing an enemy alone. So this is the brief description of the heart of darkness.\\\hline
+		\textbf{Darkvision}				& You can see in dim light within 60 feet of you as if it were bright light, and in darkness as if it were dim light. You can’t discern color in darkness, only shades of gray.\\\hline
+		\textbf{Fey Ancestry}			& You have advantage on saving throws against being charmed, and magic can’t put you to sleep.\\\hline
+		\textbf{Eyes of Shadow}			& You have advantage on Saves against detecting illusions (Magic) and if you or a other friendly Shadar-Kai casts the Darkness Spell you can see through. Also a creature can not get advantage on Stealth checks against you by hiding only in darkness.\\\hline
+		\textbf{Shadow Curse}			& Any time you get stunned, petrified, paralyzed or unconscious (expect if it’s because of willingly sleeping) you need to succeed on a DC 15 Will save or a part of your soul gets dragged to the Plane of Shadow. If the soul is fully eaten by the Planes of Shadow (note hp for your soul or better ask your dm) you transform to a wraith (and die). You can use a gal-ralan to keep your soul and body connected. You can not be raised from the dead or resurrected while you suffer from this curse. While on the Plane of Shadow the curse has no effect and can be cured with a greater restoration spell. On the Material Plane only a wish or miracle spell can end the curse. A remove curse spell does nothing against this curse. To avoid being affected by the curse, most Shadar-Kai live extreme lifestyles, embracing strong emotions and peak experiences. Most of them use pain to keep their focus, decorating their bodies with tattoos, scarification and piercings in extremely sensitive parts of their bodies. Likewise, some of them engage in self-flagellation, to the point of self-harm if they fell that they getting overtaken by the curse.\\\hline
+		\textbf{Cantrips}				& You know two cantrips of your choice from the warlock spell list. You learn additional warlock cantrips of your choice at higher levels, as shown in the Cantrips Known column of the Warlock table.\\\hline
+		\textbf{Pact Magic}				& The Warlock table shows how many spell slots you have. The table also shows what the level of those slots is; all of your spell slots are the same level. To cast one of your warlock spells of 1st level or higher, you must expend a spell slot. You regain all expended spell slots when you finish a short or long rest.\\\hline
+		\textbf{Pact of the Blade}		& $\bullet$ You can use your action to create a pact weapon in your empty hand. You can choose the form that this melee weapon takes each time you create it. You are proficient with it while you wield it. This weapon counts as magical for the purpose of overcoming resistance and immunity to nonmagical attacks and damage.\linebreak
+		$\bullet$ Your pact weapon disappears if it is more than 5 feet away from you for 1 minute or more. It also disappears if you use this feature again, if you dismiss the weapon (no action required), or if you die.\linebreak
+		$\bullet$ You can transform one magic weapon into your pact weapon by performing a special ritual while you hold the weapon. You perform the ritual over the course of 1 hour, which can be done during a short rest.\linebreak
+		$\bullet$ You can then dismiss the weapon, shunting it into an extradimensional space, and it appears whenever you create your pact weapon thereafter. You can't affect an artifact or a sentient weapon in this way. The weapon ceases being your pact weapon if you die, if you perform the 1-hour ritual on a different weapon, or if you use a 1-hour ritual to break your bond to it. The weapon appears at your feet if it is in the extradimensional space when the bond breaks.\\\hline
+		\textbf{Hexblade's Curse}		& Starting at 1st level, you gain the ability to place a baleful curse on someone. As a bonus action, choose one creature you can see within 30 feet of you. The target is cursed for 1 minute. The curse ends early if the target dies, you die, or you are incapacitated. Until the curse ends, you gain the following benefits:\linebreak
+		$\bullet$ You gain a bonus to damage rolls against the cursed target. The bonus equals your proficiency bonus.\linebreak
+		$\bullet$ Any attack roll you make against the cursed target is a critical hit on a roll of 19 or 20 on the d20.\linebreak
+		$\bullet$ If the cursed target dies, you regain hit points equal to your warlock level + your Charisma modifier (minimum of 1 hit point).\linebreak
+		You can’t use this feature again until you finish a short or long rest.\\\hline
+		\textbf{Hex Warrior}			& At 1st level, you acquire the training necessary to effectively arm yourself for battle. You gain proficiency with medium armor, shields, and martial weapons. The influence of your patron also allows you to mystically channel your will through a particular weapon. Whenever you finish a long rest, you can touch one weapon that you are proficient with and that lacks the two-handed property. When you attack with that weapon, you can use your Charisma modifier, instead of Strength or Dexterity, for the attack and damage rolls. This benefit lasts until you finish a long rest. If you later gain the Pact of the Blade feature, this benefit extends to every pact weapon you conjure with that feature, no matter the weapon's type.\\\hline
+		\textbf{Accursed Specter}		&Starting at 6th level, you can curse the soul of a person you slay, temporarily binding it in your service. When you slay a humanoid, you can cause its spirit to rise from its corpse as a specter. When the specter appears, it gains temporary hit points equal to half your warlock level. Roll initiative for the specter, which has its own turns. It obeys your verbal commands, and it gains a special bonus to its attack rolls equal to your Charisma modifier (minimum of +0). The specter remains in your service until the end of your next long rest, at which point it vanishes to the afterlife. Once you bind a specter with this feature, you can't use the feature again until you finish a long rest.\\\hline
+		\textbf{Armor of Hexes}			& At 10th level, your hex grows more powerful. If the target cursed by your Hexblade’s Curse hits you with an attack roll, you can use your reaction to roll a d6. On a 4 or higher, the attack instead misses you, regardless of its roll.\\\hline
+		\textbf{Improved Pact Weapon}	& You can use any weapon you summon with your Pact of the Blade feature as a spellcasting focus for your warlock spells. In addition, the weapon gains a +1 bonus to its attack and damage rolls, unless it is a magic weapon that already has a bonus to those rolls. Finally, the weapon you conjure can be a shortbow, longbow, light crossbow, or heavy crossbow.\\\hline
+		\textbf{Thirsting Blade}		& You can attack with your pact weapon twice, instead of once, whenever you take the Attack action on your turn.\\\hline
+		\textbf{Fiendish Vigor}			& You can cast False Life on yourself at will as a 1st-level spell, without expending a spell slot or material components.\\\hline
+		\textbf{Devil's Sight}			& You can see normally in darkness, both magical and nonmagical, to a distance of 120 feet.\\\hline
+		\textbf{Armor of Shadows}		& You can cast Mage Armor on yourself at will, without expending a spell slot or material components.\\\hline
+		\textbf{Eldritch Mind}			& You have advantage on Constitution saving throws that you make to maintain your concentration on a spell.\\\hline
+	\end{longtabu}
+}
+\def\Equipment{
+	\begin{tabularx}{\textwidth}{lX}
+		\textbf{Common Clothes}		&\\
+		\textbf{Horror Trinkets} 	& A small mirror that shows a much older version of the viewer.\\
+		\textbf{Chest}				&\\
+		\textbf{Crowbar}			& 2\\
+		\textbf{Hammer}				& 2\\
+		\textbf{Wooden Stakes}		& 3\\
+		\textbf{Holy Simbol}		& Rose made of cold forged metal, hardened in own blood\\
+		\textbf{Holy Water}			& 1 Flask\\
+		\textbf{Manacles}			& 1 Set\\
+		\textbf{Steal Mirror}		&\\
+		\textbf{Oil}				& 1 Flask\\
+		\textbf{Tinderbox}			& 2\\
+		\textbf{Tourch}				& 13\\
+		\textbf{Arcane Focus}		& Small black crystal with dried blood\\
+		\textbf{Dagger}				& 4, all iron\\
+		\textbf{Leather Armor}		& 11 + dex, Lizard Leather\\
+		\textbf{Pitons}				& 10\\
+		\textbf{Ration}				& 10 days\\
+		\textbf{Waterskin}			&\\
+		\textbf{Rope}				& 50ft\\
+	\end{tabularx}
+}
+\def\PP{0}
+\def\GP{0}
+\def\EP{0}
+\def\SP{1}
+\def\CP{0}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Document%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+	\begin{minipage}[t]{.5\linewidth} % head left
+		\begin{tabularx}{\textwidth}{XXX}
+			\multicolumn{3}{X}{\Fontauri\Name}\\\hline
+			\multicolumn{3}{X}{\tiny{Character Name}}\\
+			\AC & \Initiative & \Speed {\small$^{ft}$}\\\hline
+			\tiny{AC}&\tiny{Initiative}&\tiny{Speed}\\
+			\HitDice&\Level&\\\hline
+			\tiny{Hit Dice}&\tiny{Total}&\tiny{Used}\\
+			\MaxHP&&\\\hline
+			\tiny{Max Hp}&\tiny{Hp}&\tiny{Temp Hp}\\
+			\Prof&&\\\hline
+			\tiny{Proficiency Bonus}
+		\end{tabularx}
+	\end{minipage}%
+	\begin{minipage}[t]{.5\linewidth} % head right
+		\strut\vspace*{\offset\baselineskip}\newline %correct offset because of a fontsize and b minipage
+		\begin{tabularx}{\textwidth}{XXX}
+			\CharaClass\space\Level &\Background &\Playername\\\hline
+			\tiny{Class \& Level}	& \tiny{Background}	&\tiny{Player Name}\\
+			\Race &\Alignment &\EP\\\hline
+			\tiny{Race}	& \tiny{Alignment}	&\tiny{EP}\\
+		\end{tabularx}\vspace*{.125cm}\\
+		\Fontauri\large{
+			\begin{tabularx}{\linewidth}{XXXXXX}
+				Str & Dex & Con & Int & Wis & Cha \\ \hline
+				\Str & \Dex & \Con & \Int & \Wis & \Cha\\
+				\ifthenelse{\equal{\firstStat}{Str}}{$\bullet$}{\ifthenelse{\equal{\secondStat}{Str}}{$\bullet$}{}} &
+				\ifthenelse{\equal{\firstStat}{Dex}}{$\bullet$}{\ifthenelse{\equal{\secondStat}{Dex}}{$\bullet$}{}} &
+				\ifthenelse{\equal{\firstStat}{Con}}{$\bullet$}{\ifthenelse{\equal{\secondStat}{Con}}{$\bullet$}{}} &
+				\ifthenelse{\equal{\firstStat}{Int}}{$\bullet$}{\ifthenelse{\equal{\secondStat}{Int}}{$\bullet$}{}} &
+				\ifthenelse{\equal{\firstStat}{Wis}}{$\bullet$}{\ifthenelse{\equal{\secondStat}{Wis}}{$\bullet$}{}} &
+				\ifthenelse{\equal{\firstStat}{Cha}}{$\bullet$}{\ifthenelse{\equal{\secondStat}{Cha}}{$\bullet$}{}}\\
+				\StrMod & \DexMod & \ConMod & \IntMod & \WisMod & \ChaMod\\
+				\StrSave & \DexSave & \ConSave & \IntSave & \WisSave & \ChaSave
+			\end{tabularx}
+	}
+	\end{minipage}\vspace*{.25cm}\\
+	\begin{minipage}[t]{.25\linewidth}\normalsize
+		{\LARGE Skills}\\
+		\textcolor{titlered}{\large Strength \StrMod \ifthenelse{\equal{\firstStat}{Str}}{$\bullet$}{\ifthenelse{\equal{\secondStat}{Str}}{$\bullet$}{}}}\\
+		\begin{tabularx}{\textwidth}{lXr}
+			\ifthenelse{\equal{\AthleticsProf}{1}}{$\bullet$}{}&Athletics&\Athletics\\
+		\end{tabularx}
+		\textcolor{titlered}{\large Constitution \ConMod \ifthenelse{\equal{\firstStat}{Con}}{$\bullet$}{\ifthenelse{\equal{\secondStat}{Con}}{$\bullet$}{}}}\\
+		\textcolor{titlered}{\large Dexterity \DexMod \ifthenelse{\equal{\firstStat}{Dex}}{$\bullet$}{\ifthenelse{\equal{\secondStat}{Dex}}{$\bullet$}{}}}\\
+		\begin{tabularx}{\textwidth}{lXr}
+			\ifthenelse{\equal{\AcrobaticsProf}{1}}{$\bullet$}{}&Acrobatics&\Acrobatics\\
+			\ifthenelse{\equal{\SleightOfHandProf}{1}}{$\bullet$}{}&Sleight of Hand&\SleightOfHand\\
+			\ifthenelse{\equal{\StealthProf}{1}}{$\bullet$}{}&Stealth&\Stealth\\
+		\end{tabularx}
+		\textcolor{titlered}{\large Intelligence \IntMod \ifthenelse{\equal{\firstStat}{Int}}{$\bullet$}{\ifthenelse{\equal{\secondStat}{Int}}{$\bullet$}{}}}\\
+		\begin{tabularx}{\textwidth}{lXr}
+			\ifthenelse{\equal{\ArcanaProf}{1}}{$\bullet$}{}&Arcana&\Arcana\\
+			\ifthenelse{\equal{\HistoryProf}{1}}{$\bullet$}{}&History&\History\\
+			\ifthenelse{\equal{\InvestigationProf}{1}}{$\bullet$}{}&Investigation&\Investigation\\
+			\ifthenelse{\equal{\NatureProf}{1}}{$\bullet$}{}&Nature&\Nature\\
+			\ifthenelse{\equal{\ReligionProf}{1}}{$\bullet$}{}&Religion&\Religion\\
+		\end{tabularx}
+		\textcolor{titlered}{\large Wisdom \WisMod \ifthenelse{\equal{\firstStat}{Wis}}{$\bullet$}{\ifthenelse{\equal{\secondStat}{Wis}}{$\bullet$}{}}}\\
+		\begin{tabularx}{\textwidth}{lXr}
+			\ifthenelse{\equal{\AnimalHandlingProf}{1}}{$\bullet$}{}&Animal Handling&\AnimalHandling\\
+			\ifthenelse{\equal{\InsightProf}{1}}{$\bullet$}{}&Insight&\Insight\\
+			\ifthenelse{\equal{\MedicineProf}{1}}{$\bullet$}{}&Medicine&\Medicine\\
+			\ifthenelse{\equal{\PerceptionProf}{1}}{$\bullet$}{}&Perception&\Perception\\
+			\ifthenelse{\equal{\SurvivalProf}{1}}{$\bullet$}{}&Survival&\Survival\\
+		\end{tabularx}
+		\textcolor{titlered}{\large Charisma \ChaMod \ifthenelse{\equal{\firstStat}{Cha}}{$\bullet$}{\ifthenelse{\equal{\secondStat}{Cha}}{$\bullet$}{}}}\\
+		\begin{tabularx}{\textwidth}{lXr}
+    		\ifthenelse{\equal{\DeceptionProf}{1}}{$\bullet$}{}&Deception&\Deception\\
+			\ifthenelse{\equal{\IntimidationProf}{1}}{$\bullet$}{}&Intimidation&\Intimidation\\
+			\ifthenelse{\equal{\PerformanceProf}{1}}{$\bullet$}{}&Performance&\Performance\\
+			\ifthenelse{\equal{\PersuasionProf}{1}}{$\bullet$}{}&Persuasion&\Persuasion\\
+		\end{tabularx}
+		\textcolor{titlered}{\large Weapons}\linebreak
+		\WeaponEquipment
+	\end{minipage}%
+	\begin{minipage}[t]{.25\linewidth}\normalsize
+		{\LARGE Proficiencies}
+		\textcolor{titlered}{\large Weapons}\\
+		\WeaponProf
+		\textcolor{titlered}{\large Armor}\\
+		\ArmorProf
+		\textcolor{titlered}{\large Language}\\
+		\LanguageProf
+		\textcolor{titlered}{\large Tools}\\
+		\ToolProf
+	\end{minipage}%
+	\begin{minipage}[t]{.5\linewidth}\raggedleft\normalsize
+		{\LARGE Features}\\
+		\textcolor{titlered}{\large \Background}\\
+		\BackgroundFeature
+		\textcolor{titlered}{\large \Race}\\
+		\RaceFeature
+		\textcolor{titlered}{\large \CharaClass}\\
+		\ClassFeature
+	\end{minipage}\\
+	\begin{minipage}[t][\textheight]{.5\linewidth}\normalsize
+		{\LARGE Equipment}\\
+		\Equipment
+	\end{minipage}%
+	\begin{minipage}[t][\textheight]{.5\linewidth}\normalsize
+		\begin{tabularx}{\textwidth}{XXX}
+			\PP&\GP&\EP\\\hline
+			\tiny{PP}&\tiny{GP}	&\tiny{EP}\\
+			\SP&\CP&\\\hline
+			\tiny{SP}& \tiny{CP}&
+		\end{tabularx}\vspace*{.25cm}\\
+		\includegraphics[width=\linewidth]{Character.png}\vspace*{.25cm}\\
+		\begin{tabularx}{\textwidth}{XXX}
+			\Age &\Height &\Weight\\\hline
+			\tiny{Age}	& \tiny{Height}	&\tiny{Weight}\\
+			\Eyes &\Skin &\Hair\\\hline
+			\tiny{Eyes}	& \tiny{Skin}	&\tiny{Hair}\\
+		\end{tabularx}
+		{\LARGE Character Description}\\
+		{\scriptsize\Description}
+	\end{minipage} %
+	{\huge Spellcasting}
+	\begin{center}\normalsize
+		\begin{tabularx}{\textwidth}{XXX}
+			\SpellAbility &\SpellAtk &\SpellSaveDC\\\hline
+			\tiny{Spellcasting Ability}	& \tiny{Spell Attack Bonus}	&\tiny{Spell Save DC}
+		\end{tabularx}
+		\begin{tabularx}{\linewidth}{XXXXXXXXX}
+			1&2&3&4&5&6&7&8&9\\\hline
+			\FirstLevelSlots&
+			\SecondLevelSlots&
+			\ThirdLevelSlots&
+			\FourthLevelSlots&
+			\FifthLevelSlots&
+			\SixthLevelSlots&
+			\SeventhLevelSlots&
+			\EightLevelSlots&
+			\NinthLevelSlots
+		\end{tabularx}
+	\end{center}
+	\textcolor{titlered}{\large Cantrips}\\
+	\Cantrips
+	\textcolor{titlered}{\large 1st Level}\\
+	\FirstLevelSpells
+	\textcolor{titlered}{\large 2nd Level}\\
+	\SecondLevelSpells
+	\textcolor{titlered}{\large 3th Level}\\
+	\ThirdLevelSpells
+	\textcolor{titlered}{\large 4th Level}\\
+	\FourthLevelSpells
+	\textcolor{titlered}{\large 5th Level}\\
+	\FifthLevelSpells
+	\newpage
+	{\huge Features}
+	\FullFeature
+	\vfill
+	\pagebreak
+	{\huge Spells}
+	\FullSpells
+	{\huge Special}
+	\FullSpecial
+\end{document}

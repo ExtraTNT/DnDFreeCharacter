@@ -1,0 +1,856 @@
+\documentclass[a4paper,10pt,bg=print]{dndbook} %a4, 10pt, bg=print / full
+\usepackage[english]{babel} %language
+\usepackage[utf8]{inputenc} %lovely utf-8
+\usepackage{graphicx} %images
+\usepackage{array} %allways use this shit, idk why
+\usepackage{tikz} %draw stuff
+\usepackage{ifthen} %draw stuff
+\usetikzlibrary{calc,fadings} %draw stuff
+\usepackage{xspace} %usefull idk, allways import this stuff
+\usepackage{setspace} %don't ask, kind of like it...
+\usepackage{pgfplots}
+\usepackage{tabularx} % table
+\usepackage[singlelinecheck=false]{caption} %idk dndbook...
+\usepackage{listings} %idk dndbook...
+\usepackage{stfloats} %idk dndbook
+\usepackage{yfonts}
+\usepackage{aurical}
+\usepackage[T1]{fontenc}
+
+\graphicspath{ {./images/} }
+
+\pagestyle{empty} % no footer
+
+\geometry { % paper type + spacing
+	a4paper,
+	top=2cm,
+	bottom=2cm,
+	left=2cm,
+	right=2cm
+}
+\newcommand*\circled[2][2pt]{
+	\tikz
+	[
+		decoration={
+			random steps,
+			amplitude=1pt,
+			segment length=5pt
+		},
+		baseline=(char.base)
+	]{
+		\node
+		[
+			decorate,
+			shape=circle,
+			draw,
+			inner sep=#1-1pt
+		]
+		(char) {#2};
+	}
+}
+
+\singlespacing
+\makeatletter
+
+\def \license {GNU Free Documentation License (https://www.gnu.org/licenses/fdl-1.3)}
+\def \author {Sven Hugi}%if you edit this document, add your name... <3
+
+%highlighting with some random effect -> looks handmade and i love it... you can use this in you texts
+\newcommand\hl[2][yellow]{
+	\begin{tikzpicture}[
+	baseline,
+	decoration={random steps,amplitude=1pt,segment length=15pt},
+	outer sep=-15pt, inner sep = 0pt
+	]
+	\node[decorate,rectangle,fill=#1,anchor=text]{#2\xspace};
+	\end{tikzpicture}
+}
+% colors:
+
+% bgtan
+% bgtan2018
+% pagegold
+
+% titlered
+% titlegold
+% rulered
+% contourgray
+
+% BrGreen
+% PhbLightGreen
+% PhbLightCyan
+% PhbMauve
+% PhbTan
+% DmgLavender
+% DmgCoral
+% DmgSlateGray
+% DmgLilac
+
+%config:
+\def\Name{Qiyarus Easweril (Qiya)}
+\def\offset{-6.17} % change, if the line at the top is staggered -> -5.67 is the default value -> should work in ~100% of the cases
+
+\def\CharaClass{Wood Mage Archer}
+\def\Level{10}
+\def\Background{Outlander}
+\def\Playername{}
+\def\Race{Lythari}
+\def\Alignment{CG}
+\def\EP{-}
+
+\def\Speed{30 / 40}
+\def\Initiative{+4}
+\def\AC{15/16}
+\def\Prof{+4}
+
+\def\MaxHP{52}
+\def\HitDice{d6}
+
+\def\Str{5}
+\def\Dex{18}
+\def\Con{12}
+\def\Int{20}
+\def\Wis{16}
+\def\Cha{10}
+
+\def\StrMod{-3}
+\def\DexMod{+4}
+\def\ConMod{+1}
+\def\IntMod{+5}
+\def\WisMod{+3}
+\def\ChaMod{0}
+
+\def\StrSave{-3}
+\def\DexSave{+4}
+\def\ConSave{+1}
+\def\IntSave{+9}
+\def\WisSave{+7}
+\def\ChaSave{0}
+
+% save profs
+\def\firstStat{Int}
+\def\secondStat{Wis}
+
+% modifiers for skills (add prof bonus if prof)
+%str
+\def\Athletics{+1}
+%dex
+\def\Acrobatics{+4}
+\def\SleightOfHand{+4}
+\def\Stealth{+8}
+%int
+\def\Arcana{+9}
+\def\History{+9}
+\def\Investigation{+5}
+\def\Nature{+5}
+\def\Religion{+5}
+%wis
+\def\AnimalHandling{+3}
+\def\Insight{+3}
+\def\Medicine{+3}
+\def\Perception{+11} %expert
+\def\Survival{+7}
+%cha
+\def\Deception{0}
+\def\Intimidation{0}
+\def\Performance{0}
+\def\Persuasion{0}
+
+% prof (0/1)
+\def\AthleticsProf{1}
+%dex
+\def\AcrobaticsProf{0}
+\def\SleightOfHandProf{0}
+\def\StealthProf{1}
+%int
+\def\ArcanaProf{1}
+\def\HistoryProf{1}
+\def\InvestigationProf{0}
+\def\NatureProf{0}
+\def\ReligionProf{0}
+%wis
+\def\AnimalHandlingProf{0}
+\def\InsightProf{0}
+\def\MedicineProf{0}
+\def\PerceptionProf{1}
+\def\SurvivalProf{1}
+%cha
+\def\DeceptionProf{0}
+\def\IntimidationProf{0}
+\def\PerformanceProf{0}
+\def\PersuasionProf{0}
+
+\def\Age{712}
+\def\Height{5'5}
+\def\Weight{100 lb}
+\def\Skin{Pale}
+\def\Eyes{Green}
+\def\Hair{Long white}
+
+\def\SpellAbility{Int}
+\def\SpellAtk{+9}
+\def\SpellSaveDC{17}
+
+\def\FirstLevelSlots{3}
+\def\SecondLevelSlots{3}
+\def\ThirdLevelSlots{2}
+\def\FourthLevelSlots{2}
+\def\FifthLevelSlots{1}
+\def\SixthLevelSlots{0}
+\def\SeventhLevelSlots{0}
+\def\EightLevelSlots{0}
+\def\NinthLevelSlots{0}
+
+\def\PP{}
+\def\GP{10}
+\def\ElP{}
+\def\SP{}
+\def\CP{}
+
+
+\def\Cantrips{
+	%\small %uncomment for non-wizards...
+	\begin{tabularx}{\linewidth}{lX}
+		\textbf{Mage Hand} 		& act, 30ft, VS, 1min, 10lb\\
+		\textbf{Fire Bolt}		& act, 120ft, VS, 1 round, int save, 2d10 fire, ignites objects\\
+		\textbf{Mending}		& act, touch, VSM\\
+		\textbf{Gust}			& act, 30ft, VS, 1: medium or smaller, str save, pushed 5ft away, 2: air blast, push 5lb object 10ft away, 3: harmless effect with air like leaves rustle, wind slam shutters shut etc\\
+	\end{tabularx}
+}
+\def\FirstLevelSpells{
+	\begin{tabularx}{\linewidth}{lX}
+		\textbf{Speak with Animals}	& act, self, VS, 10min, Ritual\\
+		\textbf{Goodberry}			& act, touch, VSM, 10 berries, 1hp, action to eat, 24h effect\\
+		\textbf{Cure Wounds}		& act, touch, VS, 1d8+5, +1d8 per level\\
+	\end{tabularx}
+}
+\def\SecondLevelSpells{
+	\begin{tabularx}{\linewidth}{lX}
+		\textbf{Aid}			& act, 30ft, VSM, 8h, 3 creature, +5 current and max hp for duration\\
+		\textbf{Spider Climb}	& act, touch, VSM, con 1h\\
+		\textbf{Find Traps}		& act, 120ft, VS\\
+	\end{tabularx}
+}
+\def\ThirdLevelSpells{
+	%\small %uncomment for non-wizards...
+	\begin{tabularx}{\linewidth}{lX}
+		\textbf{Fly}				& act, touch, VSM, con 10min, speed 60ft\\
+		\textbf{Fireball}			& act, 150ft, VSM, 20ft radius, dex save, 8d6 fire, around corners, ignites objects\\
+		\textbf{Water Walker}		& act, 30ft, VSM, 1h, 10 creatures, Ritual\\
+		\textbf{Water Breathing}	& act, 30ft, VSM, 24h , 10 creatures, Ritual\\
+	\end{tabularx}
+}
+\def\FourthLevelSpells{
+	\begin{tabularx}{\linewidth}{lX}
+		\textbf{Arcane Eye}	& act, 30ft, VSM, con 1h, act to move, pass through opening 1 inch\\
+		\textbf{Fabricate}	& 10 min, 120ft, VS, 10ft cube\\
+	\end{tabularx}
+}
+\def\FifthLevelSpells{
+	\begin{tabularx}{\linewidth}{lX}
+		\textbf{Contact Other Plane}	& 1 min, self, V, 1min, dc15 int save or insane + 6d6 psychic, 5 questions, 1 word answer, Ritual\\
+		\textbf{Rary's Telepathic Bond}	& act, 30ft, VSM, 1h, 8 creatures, Ritual\\
+		\textbf{Swift Quiver}	& bonus act, T, VSM, con 1min, quiver reproduces ammunition + bonus action for 2 attacks\\
+	\end{tabularx}
+}
+
+\def\Description{
+}
+
+\def\WeaponEquipment{
+		\textbf{Longbow}\\
+		\raggedleft
+		+10 1d8 + 4 Piercing\\
+		ammunition (range 150/600), heavy, two-handed\\
+		\raggedright
+		\textbf{Dagger}\\
+		\raggedleft
+		+8 1d4 + 4 Piercing\\
+		thrown (range 20/60), light, finesse\\
+		\raggedright
+		\textbf{Bite}\\
+		\raggedleft
+		-3 1d6 -3 Piercing\\
+		natural\\
+		\raggedright
+}
+
+\def\WeaponProf{
+	\begin{itemize}
+		\item Simple Weapons
+		\item Martial Ranged Weapons
+	\end{itemize}
+}
+\def\ArmorProf{
+	\begin{itemize}
+		\item Light Armor
+	\end{itemize}
+}
+\def\LanguageProf{
+	\begin{itemize}
+		\item Common
+		\item Elfen
+		\item Sylvan
+	\end{itemize}
+}
+\def\ToolProf{
+	\begin{itemize}
+		\item Lute
+	\end{itemize}
+}
+
+\def\ClassFeature{
+	\begin{tabularx}{\textwidth}{lX}
+		\textbf{Mage Archery}		& Bow, up to range bow (normal castign possible), focus, lvl+int spells on list, ritual casting, max range disadv\\
+		\textbf{Archery}			& +2 atk on ranged weapons\\
+		\textbf{Extra Attack}		& 2 attacks\\
+		\textbf{Familiar}			& Find Familiar free, long rest, pixie (at will: druidcraft, 1x day: dancing lights, detect evil and good, detect thoughts, entangle, phantasmal force, dc 12) ac 15\\
+		\textbf{Naturla Explorer}	& aura, 30ft, difficult terrain no slowdown, not tracked by nonmagical means.
+	\end{tabularx}
+	\textcolor{titlered}{\large Feats}\\
+	\begin{tabularx}{\textwidth}{lX}
+		\textbf{Keen Mind}		& Always know: which way is north, hours left before next sunrise or sunset, everything seen or heard the past month\\
+		\textbf{Skill Expert}	& \\
+	\end{tabularx}
+}
+\def\RaceFeature{
+	\begin{tabularx}{\textwidth}{lX}
+		\textbf{Darkvision}	& 60ft dim Light see as bright, darkness as dim. No color in darkness.\\ 
+		\textbf{Wolf Form}	& bonus act, no weapon / shield, ac 12+dex, only understand wolfs\\
+		\textbf{Wold Sense}	& in  wolf form adv perception (smelling, hearing)\\
+		\textbf{Bite}		& in wolf form bite nat weapon, 1d6+str piercing\\
+		\textbf{Fey Ancestry}	& in humanoid form adv saves being charmed, magic can't put you to sleep\\
+		\textbf{Trance}		& in humanoid form 4h long rest\\
+	\end{tabularx}
+}
+\def\BackgroundFeature{
+	\begin{tabularx}{\textwidth}{lX}
+		\textbf{Wanderer}	& excellent memory for maps and geography, always recall general layout of terrain, find food and water for you + 5 persons\\
+	\end{tabularx}
+}
+
+%static -> don't use for changing stuff, like arows, food etc
+\def\Equipment{
+	\begin{tabularx}{\textwidth}{lX}
+		\textbf{Staff}				& Old, Wood\\
+		\textbf{Hunting Trap}		&\\
+		\textbf{Trophy}				& Horn\\
+		\textbf{Traveler's Clothes}	& Light\\
+		\textbf{Arrow}				& 30\\
+		\textbf{Arcane Focus}		& headband made from grass and leaves\\
+		\textbf{Dagger}				& \\
+		\textbf{Longbow}			& dark wood with leaves on it\\
+		\textbf{Crowbar}			&\\
+		\textbf{Hammer}				&\\
+		\textbf{Piton}				& 10\\
+		\textbf{Torch}				& 10\\
+		\textbf{Tinderbox}			&\\
+		\textbf{Ration}				& 10 days\\
+		\textbf{Waterskin}			&\\
+		\textbf{Hemped Rope}		& 50ft\\
+		\textbf{Leather Armor}		& Green ac 11 + dex\\
+	\end{tabularx}
+}
+\def\FullSpells{
+	\DndSpellHeader
+	{Mage Hand}
+	{Conjuration-Cantrip}
+	{Action}
+	{30ft}
+	{V, S}
+	{1 minute}
+	A spectral, floating hand appears at a point you choose within range. The hand lasts for the duration or until you dismiss it as an action. The hand vanishes if it is ever more than 30 feet away from you or if you cast this spell again.\linebreak
+	You can use your action to control the hand. You can use the hand to manipulate an object, open an unlocked door or container, stow or retrieve an item from an open container, or pour the contents out of a vial. You can move the hand up to 30 feet each time you use it.\linebreak
+	The hand can’t attack, activate magical items, or carry more than 10 pounds.\linebreak
+	\DndSpellHeader
+	{Fire Bolt}
+	{Evocation-Cantrip}
+	{Action}
+	{120ft}
+	{V, S}
+	{Instantaneous}
+	You hurl a mote of fire at a creature or object within range. Make a ranged spell attack against the target. On a hit, the target takes 1d10 fire damage. A flammable object hit by this spell ignites if it isn’t being worn or carried.\linebreak
+	\textbf{At Higher Levels.} This spell’s damage increases by 1d10 when you reach 5th level (2d10), 11th level (3d10), and 17th level (4d10)..\linebreak
+	\DndSpellHeader
+	{Mending}
+	{Transmutation-Ccantrip}
+	{1 minute}
+	{Touch}
+	{V, S, M (two lodestones)}
+	{Instantaneous}
+	This spell repairs a single break or tear in an object you touch, such as a broken chain link, two halves of a broken key, a torn cloak, or a leaking wineskin. As long as the break or tear is no larger than 1 foot in any dimension, you mend it, leaving no trace of the former damage.\linebreak
+	This spell can physically repair a magic item or construct, but the spell can’t restore magic to such an object.\linebreak
+	\DndSpellHeader
+	{Gust}
+	{Transmutation-Cantrip}
+	{Action}
+	{30 Feet}
+	{V, S}
+	{Instantaneous}
+	You seize the air and compel it to create one of the following effects at a point you can see within range:\linebreak
+	\begin{itemize}
+		\item One Medium or smaller creature that you choose must succeed on a Strength saving throw or be pushed up to 5 feet away from you.
+		\item You create a small blast of air capable of moving one object that is neither held nor carried and that weighs no more than 5 pounds. The object is pushed up to 10 feet away from you. It isn’t pushed with enough force to cause damage.
+		\item You create a harmless sensory affect using air, such as causing leaves to rustle, wind to slam shutters shut, or your clothing to ripple in a breeze.
+	\end{itemize}
+	\DndSpellHeader
+	{Find Familiar}
+	{1st-level Conjugation (Ritual)}
+	{1 hour}
+	{10 Feet}
+	{V, S, M (10 gp worth of charcoal, incense, and herbs that must be consumed by fire in a brass brazier)}
+	{Instantaneous}
+	You gain the service of a familiar, a spirit that takes an animal form you choose: bat, cat, crab, frog (toad), hawk, lizard, octopus, owl, poisonous snake, fish (quipper), rat, raven, sea horse, spider, or weasel. Appearing in an unoccupied space within range, the familiar has the statistics of the chosen form, though it is a celestial, fey, or fiend (your choice) instead of a beast.\linebreak
+	Your familiar acts independently of you, but it always obeys your commands. In combat, it rolls its own initiative and acts on its own turn. A familiar can’t attack, but it can take other actions as normal.\linebreak
+	When the familiar drops to 0 hit points, it disappears, leaving behind no physical form. It reappears after you cast this spell again.\linebreak
+	While your familiar is within 100 feet of you, you can communicate with it telepathically. Additionally, as an action, you can see through your familiar’s eyes and hear what it hears until the start of your next turn, gaining the benefits of any special senses that the familiar has. During this time, you are deaf and blind with regard to your own senses.\linebreak
+	As an action, you can temporarily dismiss your familiar. It disappears into a pocket dimension where it awaits your summons. Alternatively, you can dismiss it forever. As an action while it is temporarily dismissed, you can cause it to reappear in any unoccupied space within 30 feet of you.\linebreak
+	You can’t have more than one familiar at a time. If you cast this spell while you already have a familiar, you instead cause it to adopt a new form. Choose one of the forms from the above list. Your familiar transforms into the chosen creature.\linebreak
+	Finally, when you cast a spell with a range of touch, your familiar can deliver the spell as if it had cast the spell. Your familiar must be within 100 feet of you, and it must use its reaction to deliver the spell when you cast it. If the spell requires an attack roll, you use your attack modifier for the roll.\linebreak
+	\DndSpellHeader
+	{Cure Wounds}
+	{1st-level Evocation}
+	{Action}
+	{Touch}
+	{V, S}
+	{Instantaneous}
+	A creature you touch regains a number of hit points equal to 1d8 + your spellcasting ability modifier. This spell has no effect on undead or constructs.\linebreak
+	\textbf{At Higher Levels.} When you cast this spell using a spell slot of 2nd level or higher, the healing increases by 1d8 for each slot level above 1st.\linebreak
+	\DndSpellHeader
+	{Speak with Animals}
+	{1st-level Divination (Ritual)}
+	{Action}
+	{Self}
+	{V, S}
+	{10 Minutes}
+	You gain the ability to comprehend and verbally communicate with beasts for the duration. The knowledge and awareness of many beasts is limited by their intelligence, but at minimum, beasts can give you information about nearby locations and monsters, including whatever they can perceive or have perceived within the past day. You might be able to persuade a beast to perform a small favor for you, at the DM’s discretion.\linebreak
+	\DndSpellHeader
+	{Goodberry}
+	{1st-level Transmutation}
+	{Action}
+	{Touch}
+	{V, S, M (a sprig of mistletoe)}
+	{Instantaneous}
+	p to ten berries appear in your hand and are infused with magic for the duration. A creature can use its action to eat one berry. Eating a berry restores 1 hit point, and the berry provides enough nourishment to sustain a creature for one day.\linebreak
+	The berries lose their potency if they have not been consumed within 24 hours of the casting of this spell.\linebreak
+	\DndSpellHeader
+	{Aid}
+	{2nd-level Abjuratuin}
+	{Action}
+	{30 feet}
+	{V, S, M (a tiny strip of white cloth)}
+	{8 hours}
+	Your spell bolsters your allies with toughness and resolve. Choose up to three creatures within range. Each target’s hit point maximum and current hit points increase by 5 for the duration.\linebreak
+	\textbf{At Higher Levels.} When you cast this spell using a spell slot of 3rd level or higher, a target’s hit points increase by an additional 5 for each slot level above 2nd.\linebreak
+	\DndSpellHeader
+	{Spider Climb}
+	{2nd-level Transmutation}
+	{Action}
+	{Touch}
+	{V, S, M (a drop of bitumen and a spider)}
+	{Concentration, up to 1 hour}
+	Until the spell ends, one willing creature you touch gains the ability to move up, down, and across vertical surfaces and upside down along ceilings, while leaving its hands free. The target also gains a climbing speed equal to its walking speed.\linebreak
+	\DndSpellHeader
+	{Find Traps}
+	{2nd-level Divination}
+	{Action}
+	{120 feet}
+	{V, S}
+	{Instantaneous}
+	You sense the presence of any trap within range that is within line of sight. A trap, for the purpose of this spell, includes anything that would inflict a sudden or unexpected effect you consider harmful or undesirable, which was specifically intended as such by its creator. Thus, the spell would sense an area affected by the alarm spell, a glyph of warding, or a mechanical pit trap, but it would not reveal a natural weakness in the floor, an unstable ceiling, or a hidden sinkhole.\linebreak
+	This spell merely reveals that a trap is present. You don’t learn the location of each trap, but you do learn the general nature of the danger posed by a trap you sense.\linebreak
+	\pagebreak
+	\DndSpellHeader
+	{Fireball}
+	{3rd-level Evocation}
+	{Action}
+	{150ft}
+	{V, S, M (a tiny ball of bat guano and sulfur)}
+	{Instantaneous}
+	A bright streak flashes from your pointing finger to a point you choose within range then blossoms with a low roar into an explosion of flame. Each creature in a 20-foot radius must make a Dexterity saving throw. A target takes 8d6 fire damage on a failed save, or half as much damage on a successful one. The fire spreads around corners. It ignites flammable objects in the area that aren’t being worn or carried.\linebreak
+	\textbf{At Higher Levels.} When you cast this spell using a spell slot of 4th level or higher, the damage increases by 1d6 for each slot level above 3rd.\linebreak
+	\DndSpellHeader
+	{Fly}
+	{3rd-level Transmutation}
+	{Action}
+	{Touch}
+	{V, S, M (a wing feather from any bird)}
+	{Concentration, up to 10 minutes}
+	You touch a willing creature. The target gains a flying speed of 60 feet for the duration. When the spell ends, the target falls if it is still aloft, unless it can stop the fall.\linebreak
+	\textbf{At Higher Levels.} When you cast this spell using a spell slot of 4th level or higher, you can target one additional creature for each slot level above 3rd.\linebreak
+	\DndSpellHeader
+	{Water Walker}
+	{3rd-level Transmutation (Ritual)}
+	{Action}
+	{30 feet}
+	{V, S, M (a piece of cork)}
+	{1 hour}
+	This spell grants the ability to move across any liquid surface – such as water, acid, mud, snow, quicksand, or lava – as if it were harmless solid ground (creatures crossing molten lava can still take damage from the heat). Up to ten willing creatures you can see within range gain this ability for the duration.\linebreak
+	If you target a creature submerged in a liquid, the spell carries the target to the surface of the liquid at a rate of 60 feet per round.\linebreak
+	\DndSpellHeader
+	{Water Breathing}
+	{3rd-level Transmutation (Ritual)}
+	{Action}
+	{30 feet}
+	{V, S, M (a short reed or piece of straw)}
+	{24 hours}
+	This spell grants up to ten willing creatures you can see within range the ability to breathe underwater until the spell ends. Affected creatures also retain their normal mode of respiration.\linebreak
+	\pagebreak
+	\DndSpellHeader
+	{Arcane Eye}
+	{4th-level Divination}
+	{Action}
+	{30 feet}
+	{V, S, M (a bit of bat fur)}
+	{Concentration, up to 1 hour}
+	You create an invisible, magical eye within range that hovers in the air for the duration. You mentally receive visual information from the eye, which has normal vision and darkvision out to 30 feet. The eye can look in every direction.\linebreak
+	As an action, you can move the eye up to 30 feet in any direction. There is no limit to how far away from you the eye can move, but it can’t enter another plane of existence. A solid barrier blocks the eye’s movement, but the eye can pass through an opening as small as 1 inch in diameter.\linebreak
+	\DndSpellHeader
+	{Fabricate}
+	{4th-level Transmutation}
+	{10 minutes}
+	{120 feet}
+	{V, S}
+	{Instantaneous}
+	You convert raw materials into products of the same material. For example, you can fabricate a wooden bridge from a clump of trees, a rope from a patch of hemp, and clothes from flax or wool.\linebreak
+	Choose raw materials that you can see within range. You can fabricate a Large or smaller object (contained within a 10-foot cube, or eight connected 5-foot cubes), given a sufficient quantity of raw material. If you are working with metal, stone, or another mineral substance, however, the fabricated object can be no larger than Medium (contained within a single 5-foot cube). The quality of objects made by the spell is commensurate with the quality of the raw materials.\linebreak
+	Creatures or magic items can’t be created or transmuted by this spell. You also can’t use it to create items that ordinarily require a high degree of craftsmanship, such as jewelry, weapons, glass, or armor, unless you have proficiency with the type of artisan’s tools used to craft such objects.\linebreak
+	\DndSpellHeader
+	{Contact Other Plane}
+	{5th-level Divination (Ritual)}
+	{1 minute}
+	{Self}
+	{V}
+	{1 minute}
+	You mentally contact a demigod, the spirit of a long-dead sage, or some other mysterious entity from another plane. Contacting this extraplanar intelligence can strain or even break your mind. When you cast this spell, make a DC 15 Intelligence saving throw. On a failure, you take 6d6 psychic damage and are insane until you finish a long rest. While insane, you can’t take actions, can’t understand what other creatures say, can’t read, and speak only in gibberish. A Greater Restoration spell cast on you ends this effect.\linebreak
+	On a successful save, you can ask the entity up to five questions. You must ask your questions before the spell ends. The DM answers each question with one word, such as "yes," "no," "maybe," "never," "irrelevant," or "unclear" (if the entity doesn’t know the answer to the question). If a one-word answer would be misleading, the DM might instead offer a short phrase as an answer.\linebreak
+	\pagebreak
+	\DndSpellHeader
+	{Rary's Telepathic Bond}
+	{5th-level Divination (Ritual)}
+	{Action}
+	{30 feet}
+	{V, S, M (pieces of eggshell from two different kinds of creatures)}
+	{1 hour}
+	You forge a telepathic link among up to eight willing creatures of your choice within range, psychically linking each creature to all the others for the duration. Creatures with Intelligence scores of 2 or less aren’t affected by this spell.\linebreak
+	Until the spell ends, the targets can communicated telepathically through the bond whether or not they have a common language. The communication is possible over any distance, though it can’t extend to other planes of existence.\linebreak
+	\DndSpellHeader
+	{Swift Quiver}
+	{5th-level Transmutation}
+	{Bonus Action}
+	{Touch}
+	{V, S, M (a quiver containing at least one piece of ammunition)}
+	{Concentration, up to 1 minute}
+	You transmute your quiver so it produces an endless supply of nonmagical ammunition, which seems to leap into your hand when you reach for it.\linebreak
+	On each of your turns until the spell ends, you can use a bonus action to make two attacks with a weapon that uses ammunition from the quiver. Each time you make such a ranged attack, your quiver magically replaces the piece of ammunition you used with a similar piece of nonmagical ammunition. Any pieces of ammunition created by this spell disintegrate when the spell ends. If the quiver leaves your possession, the spell ends.\linebreak
+}
+\def\FullFeature{
+	\subsection{Mage Archery}
+	You are able to cast spells with a ranged weapon. You can use a ranged weapon as an arcane focus to avoid material costs, unless they have a gold cost or are consumed during the spell. In order to cast a spell, you need to use one of your spellslots. You start with 2 level one spellslots and gain more on higher levels. You regain your used spellslots at the end of a long rest. You can use your weapon to extend the range of a spell up to the range of your weapon (The spellsniper and sharpshooter feat does not add to this bonus). This does not count for spells with the range self. Also keep in mind, that a arrow eventually gives away your position. Spells with a direct attack are casted directly form the weapon, on spells with a area effect, a condition in a area or touch range a arrow is fired and the spell acts like casted at the point, where the arrow hits a target, ground, wall, object or even the air. If you cast a spell with a ranged weapon, over a distance greater, than the normal range of this weapon, it is handled the same, as if you would make a weapon attack over your normal range. Casting a spell this way, you can not exceed the maximum range of your weapon. Intelligence is your spellcastingability for your mage archer spells, since you learn your spells through dedicated study and memorization. You use your Intelligence whenever a spell refers to your spellcasting ability. In addition, you use your Intelligence modifier when setting the saving throw DC for a mage archer spell you cast and when making an attack roll with one.\linebreak
+	\textbf{Spell save D}C = 8 + your proficiency bonus + your Intelligence modifier\linebreak
+	\textbf{Spell attack modifier} = your proficiency bonus + your Intelligence modifier\linebreak
+	\subsection{Casting Spells}
+	You can know a number of mage archer spells from your spelllist equal to your Intelligence modifier + your mage archer level (minimum of one spell). The spells must be of a level for which you have spell slots. Every time you gain a new Level, you can change the spells you know.
+	\subsection{Ritual Casting}
+	You can cast a mage archer spell as ritual if that spell has the ritual tag.
+	\subsection{Cantrips}
+	Starting at 1st level, you know two cantrips of your choice from the mage archer spell list. You learn additional mage archer cantrips of your choice at higher levels, as shown in the Cantrips Known column of the Mage Archer table.
+	\subsection{Archery}
+	Starting at 2nd level you gain a +2 bonus to attack rolls you make with ranged weapons.
+	\subsection{Extra Attack}
+	Starting at 10th level you can attack twice, instead of once on your turn. But keep in mind, that you can not cast 2 Spells or Cantrips in one round.
+	\subsection{Familiar}
+	Starting at 1st level, you can cast the Find Familiar spell once every long rest, without spending a spellslot or material components. As a special form you can choose you familiar to be a pixie, but with out sertan spells. Thise spells are confusion, dispell magic, fly, polymorph and sleep.
+	\subsection{Natural Explorer}
+	Starting at 6th level, you can produce an aura of 30ft in diameter. Every creature you choose within this aura doesn't get slowed down because of difficult terrain. Also, the creature can't be tracked by nonmagical means, unless she chooses to leave a trail.
+	\subsection{Darkvision}
+	You can see in dim light within 60 ft of you as if it were bright light, and in darkness as if it were dim light. You can't discern color in darkness, only shades of gray.
+	\subsection{Wolf Form} As a Bonus Action you can change between your humanoid form and your wolf form. In your wolf form, you can not use any weapon or shield, only other wolfs and wolf-lycanthropics will understand you and your armor does not count on your ac, you have instead a ac of 12 + your dexterity modifier.
+	\subsection{Wolf Sense.} In your wolf form, you have an advantage in perception checks that rely on hearing or smelling.
+	\subsection{Bite} In your wolf form, your bite acts as a natural weapon, which you can use to make unarmed strikes. If you hit with it, you deal piercing damage equal to 1d6 + your strength modifier instead of the normal damage.
+	\subsection{Fey Ancestry.} In your humanoid form you have advantage on saving throws against being charmed and magic can't put you to sleep.
+	\subsection{Trance.} In your humanoid form you do not sleep. Instead you meditate deeply, remaining semi-conscious for 4 hours a day. After resting this way you benefit from the same benefit a human would from 8 hours of sleep.
+	\subsection{Wanderer}
+	You have an excellent memory for maps and geography, and you can always recall the general layout of terrain, settlements, and other features around you. In addition you can find food and fresh water for yourself and up to five other people each day, provided that the land offers berries, small game, water and so forth.
+}
+\def\FullFeat{
+	\subsection{Skill Expert}
+	You have honed your proficiency with particular skills, granting you the following benefits:
+	\begin{itemize}
+		\item Increase one ability score of your choice by 1, to a maximum of 20.
+		\item You gain proficiency in one skill of your choice.
+		\item Choose one skill in which you have proficiency. You gain expertise with that skill, which means your proficiency bonus is doubled for any ability check you make with it. The skill you choose must be one that isn't already benefiting from a feature, such as Expertise, that doubles your proficiency bonus.
+	\end{itemize}
+	\subsection{Keen Mind}
+	You have a mind that can track time, direction, and detail with uncanny precision. You gain the following benefits.
+	\begin{itemize}
+		\item Increase your Intelligence score by 1, to a maximum of 20.
+		\item You always know which way is north.
+		\item You always know the number of hours left before the next sunrise or sunset.
+		\item You can accurately recall anything you have seen or heard within the past month.
+	\end{itemize}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%Document%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+	\begin{minipage}[t]{.5\linewidth} % head left
+		\begin{tabularx}{\textwidth}{XXX}
+			\multicolumn{3}{X}{\Fontauri\Name}\\\hline
+			\multicolumn{3}{X}{\tiny{Character Name}}\\
+			\AC & \Initiative & \Speed {\small$^{ft}$}\\\hline
+			\tiny{AC}&\tiny{Initiative}&\tiny{Speed}\\
+			\HitDice&\Level&\\\hline
+			\tiny{Hit Dice}&\tiny{Total}&\tiny{Used}\\
+			\MaxHP&&\\\hline
+			\tiny{Max Hp}&\tiny{Hp}&\tiny{Temp Hp}\\
+			\Prof&&\\\hline
+			\tiny{Proficiency Bonus}
+		\end{tabularx}
+	\end{minipage}%
+	\begin{minipage}[t]{.5\linewidth} % head right
+		\strut\vspace*{\offset\baselineskip}\newline %correct offset because of a fontsize and b minipage
+		\begin{tabularx}{\textwidth}{XXX}
+			\CharaClass\space\Level &\Background &\Playername\\\hline
+			\tiny{Class \& Level}	& \tiny{Background}	&\tiny{Player Name}\\
+			\Race &\Alignment &\EP\\\hline
+			\tiny{Race}	& \tiny{Alignment}	&\tiny{EP}\\
+		\end{tabularx}\vspace*{.125cm}\\
+		\Fontauri\large{
+			\begin{tabularx}{\linewidth}{XXXXXX}
+				Str & Dex & Con & Int & Wis & Cha \\ \hline
+				\Str & \Dex & \Con & \Int & \Wis & \Cha\\
+				\ifthenelse{\equal{\firstStat}{Str}}{$\bullet$}{\ifthenelse{\equal{\secondStat}{Str}}{$\bullet$}{}} &
+				\ifthenelse{\equal{\firstStat}{Dex}}{$\bullet$}{\ifthenelse{\equal{\secondStat}{Dex}}{$\bullet$}{}} &
+				\ifthenelse{\equal{\firstStat}{Con}}{$\bullet$}{\ifthenelse{\equal{\secondStat}{Con}}{$\bullet$}{}} &
+				\ifthenelse{\equal{\firstStat}{Int}}{$\bullet$}{\ifthenelse{\equal{\secondStat}{Int}}{$\bullet$}{}} &
+				\ifthenelse{\equal{\firstStat}{Wis}}{$\bullet$}{\ifthenelse{\equal{\secondStat}{Wis}}{$\bullet$}{}} &
+				\ifthenelse{\equal{\firstStat}{Cha}}{$\bullet$}{\ifthenelse{\equal{\secondStat}{Cha}}{$\bullet$}{}}\\
+				\StrMod & \DexMod & \ConMod & \IntMod & \WisMod & \ChaMod\\
+				\StrSave & \DexSave & \ConSave & \IntSave & \WisSave & \ChaSave
+			\end{tabularx}
+	}
+	\end{minipage}\vspace*{.25cm}\\
+	\begin{minipage}[t]{.25\linewidth}\small
+		{\Large Skills}\\
+		\textcolor{titlered}{\large Strength \StrMod \ifthenelse{\equal{\firstStat}{Str}}{$\bullet$}{\ifthenelse{\equal{\secondStat}{Str}}{$\bullet$}{}}}\\
+		\begin{tabularx}{\textwidth}{lXr}
+			\ifthenelse{\equal{\AthleticsProf}{1}}{$\bullet$}{}&Athletics&\Athletics\\
+		\end{tabularx}
+		\textcolor{titlered}{\large Constitution \ConMod \ifthenelse{\equal{\firstStat}{Con}}{$\bullet$}{\ifthenelse{\equal{\secondStat}{Con}}{$\bullet$}{}}}\\
+		\textcolor{titlered}{\large Dexterity \DexMod \ifthenelse{\equal{\firstStat}{Dex}}{$\bullet$}{\ifthenelse{\equal{\secondStat}{Dex}}{$\bullet$}{}}}\\
+		\begin{tabularx}{\textwidth}{lXr}
+			\ifthenelse{\equal{\AcrobaticsProf}{1}}{$\bullet$}{}&Acrobatics&\Acrobatics\\
+			\ifthenelse{\equal{\SleightOfHandProf}{1}}{$\bullet$}{}&Sleight of Hand&\SleightOfHand\\
+			\ifthenelse{\equal{\StealthProf}{1}}{$\bullet$}{}&Stealth&\Stealth\\
+		\end{tabularx}
+		\textcolor{titlered}{\large Intelligence \IntMod \ifthenelse{\equal{\firstStat}{Int}}{$\bullet$}{\ifthenelse{\equal{\secondStat}{Int}}{$\bullet$}{}}}\\
+		\begin{tabularx}{\textwidth}{lXr}
+			\ifthenelse{\equal{\ArcanaProf}{1}}{$\bullet$}{}&Arcana&\Arcana\\
+			\ifthenelse{\equal{\HistoryProf}{1}}{$\bullet$}{}&History&\History\\
+			\ifthenelse{\equal{\InvestigationProf}{1}}{$\bullet$}{}&Investigation&\Investigation\\
+			\ifthenelse{\equal{\NatureProf}{1}}{$\bullet$}{}&Nature&\Nature\\
+			\ifthenelse{\equal{\ReligionProf}{1}}{$\bullet$}{}&Religion&\Religion\\
+		\end{tabularx}
+		\textcolor{titlered}{\large Wisdom \WisMod \ifthenelse{\equal{\firstStat}{Wis}}{$\bullet$}{\ifthenelse{\equal{\secondStat}{Wis}}{$\bullet$}{}}}\\
+		\begin{tabularx}{\textwidth}{lXr}
+			\ifthenelse{\equal{\AnimalHandlingProf}{1}}{$\bullet$}{}&Animal Handling&\AnimalHandling\\
+			\ifthenelse{\equal{\InsightProf}{1}}{$\bullet$}{}&Insight&\Insight\\
+			\ifthenelse{\equal{\MedicineProf}{1}}{$\bullet$}{}&Medicine&\Medicine\\
+			\ifthenelse{\equal{\PerceptionProf}{1}}{$\bullet$}{}&Perception&\Perception\\
+			\ifthenelse{\equal{\SurvivalProf}{1}}{$\bullet$}{}&Survival&\Survival\\
+		\end{tabularx}
+		\textcolor{titlered}{\large Charisma \ChaMod \ifthenelse{\equal{\firstStat}{Cha}}{$\bullet$}{\ifthenelse{\equal{\secondStat}{Cha}}{$\bullet$}{}}}\\
+		\begin{tabularx}{\textwidth}{lXr}
+    		\ifthenelse{\equal{\DeceptionProf}{1}}{$\bullet$}{}&Deception&\Deception\\
+			\ifthenelse{\equal{\IntimidationProf}{1}}{$\bullet$}{}&Intimidation&\Intimidation\\
+			\ifthenelse{\equal{\PerformanceProf}{1}}{$\bullet$}{}&Performance&\Performance\\
+			\ifthenelse{\equal{\PersuasionProf}{1}}{$\bullet$}{}&Persuasion&\Persuasion\\
+		\end{tabularx}
+		\textcolor{titlered}{\large Weapons}\linebreak
+		\WeaponEquipment
+	\end{minipage}%
+	\begin{minipage}[t]{.25\linewidth}\small
+		{\Large Proficiencies}
+		\textcolor{titlered}{\large Weapons}\\
+		\WeaponProf
+		\textcolor{titlered}{\large Armor}\\
+		\ArmorProf
+		\textcolor{titlered}{\large Language}\\
+		\LanguageProf
+		\textcolor{titlered}{\large Tools}\\
+		\ToolProf
+	\end{minipage}%
+	\begin{minipage}[t]{.5\linewidth}\raggedleft\small
+		{\Large Features}\\
+		\textcolor{titlered}{\large \Background}\\
+		\BackgroundFeature
+		\textcolor{titlered}{\large \Race}\\
+		\RaceFeature
+		\textcolor{titlered}{\large \CharaClass}\\
+		\ClassFeature
+	\end{minipage}\\
+	\begin{minipage}[t][\textheight]{.5\linewidth}\normalsize		{\Large Equipment}\\
+		\Equipment
+	\end{minipage}%
+	\begin{minipage}[t][\textheight]{.5\linewidth}\normalsize
+		\begin{tabularx}{\textwidth}{XXX}
+			\PP&\GP&\ElP\\\hline
+			\tiny{PP}&\tiny{GP}	&\tiny{EP}\\
+			\SP&\CP&\\\hline
+			\tiny{SP}& \tiny{CP}&
+		\end{tabularx}\vspace*{.25cm}\\
+		\includegraphics[width=\linewidth]{Character.png}\vspace*{.25cm}\\
+		\begin{tabularx}{\textwidth}{XXX}
+			\Age &\Height &\Weight\\\hline
+			\tiny{Age}	& \tiny{Height}	&\tiny{Weight}\\
+			\Eyes &\Skin &\Hair\\\hline
+			\tiny{Eyes}	& \tiny{Skin}	&\tiny{Hair}\\
+		\end{tabularx}
+	\end{minipage} %
+	{\huge Spellcasting}
+	\begin{center}\normalsize
+		\begin{tabularx}{\textwidth}{XXX}
+			\SpellAbility &\SpellAtk &\SpellSaveDC\\\hline
+			\tiny{Spellcasting Ability}	& \tiny{Spell Attack Bonus}	&\tiny{Spell Save DC}
+		\end{tabularx}
+		\begin{tabularx}{\linewidth}{XXXXXXXXX}
+			1&2&3&4&5&6&7&8&9\\\hline
+			\FirstLevelSlots&
+			\SecondLevelSlots&
+			\ThirdLevelSlots&
+			\FourthLevelSlots&
+			\FifthLevelSlots&
+			\SixthLevelSlots&
+			\SeventhLevelSlots&
+			\EightLevelSlots&
+			\NinthLevelSlots
+		\end{tabularx}
+	\end{center}
+	\begin{minipage}[t]{.5\linewidth}\scriptsize
+		\textcolor{titlered}{\large Cantrips}\\
+		\Cantrips
+		\textcolor{titlered}{\large 1st Level}\\
+		\FirstLevelSpells
+		\textcolor{titlered}{\large 2nd Level}\\
+		\SecondLevelSpells
+	\end{minipage}%
+	\begin{minipage}[t]{.5\linewidth}\scriptsize
+		\textcolor{titlered}{\large 3th Level}\\
+		\ThirdLevelSpells
+		\textcolor{titlered}{\large 4th Level}\\
+		\FourthLevelSpells
+		\textcolor{titlered}{\large 5th Level}\\
+		\FifthLevelSpells
+	\end{minipage} %
+	\newpage
+	{\huge Features}
+	\FullFeature
+	\vfil\newpage
+	{\huge Feats}
+	\FullFeat
+	\vfil\pagebreak
+	{\huge Spells}
+	\FullSpells
+	\vfil\newpage
+	\begin{DndMonster}{Pixie}
+		\DndMonsterType{Tiny Fey, neutral good}
+		\DndMonsterBasics[
+			armor-class = {15},
+			hit-points  = {\DndDice{1d4 - 1}},
+			speed       = {10 ft., fly 30 ft.},
+		]
+		\DndMonsterAbilityScores[
+			str = 2,
+			dex = 20,
+			con = 8,
+			int = 10,
+			wis = 14,
+			cha = 15,
+		]
+		\DndMonsterDetails[
+			skills = {Perception +4, Stealth +7},
+			senses = {passive Perception 14},
+			languages = {Sylvan},
+			challenge = 1/4,
+		]
+		\DndMonsterAction{Magic Resistance}
+			The pixie has advantage on saving throws against spells and other magical effects.
+		\DndMonsterAction{Innate Spellcasting}
+			The pixie's innate spellcasting ability is Charisma (spell save DC 12). It can innately cast the following spells, requiring only its pixie dust as a component:
+		\begin{DndMonsterSpells}
+			\DndInnateSpellLevel{druidcraft}
+			\DndInnateSpellLevel[1]{dancing lights, detect evil and good, detect thoughts, entangle, phantasmal force}
+		\end{DndMonsterSpells}
+		\DndMonsterSection{Actions}
+		\DndMonsterAction{Superior Invisibility}
+			The pixie magically turns invisible until its concentration ends (as if concentrating on a spell). Any equipment the pixie wears or carries is invisible with it.
+	\end{DndMonster}
+
+	\DndSpellHeader
+	{Druidcraft}
+	{Transmutation Cantrip}
+	{Action}
+	{30 feet}
+	{V, S}
+	{Instantaneous}
+	Whispering to the spirits of nature, you create one of the following effects within range:
+	\begin{itemize}
+		\item You create a tiny, harmless sensory effect that predicts what the weather will be at your location for the next 24 hours. The effect might manifest as a golden orb for clear skies, a cloud for rain, falling snowflakes for snow, and so on. This effect persists for 1 round.
+		\item You instantly make a flower blossom, a seed pod open, or a leaf bud bloom.
+		\item You create an instantaneous, harmless sensory effect, such as falling leaves, a puff of wind, the sound of a small animal, or the faint odor of skunk. The effect must fit in a 5-foot cube.
+		\item You instantly light or snuff out a candle, a torch, or a small campfire.
+	\end{itemize}
+	\DndSpellHeader
+	{Dancing Lights}
+	{Evocation Cantrip}
+	{Action}
+	{120 feet}
+	{V, S, M (a bit of phosphorus or wychwood, or a glowworm)}
+	{Concentration, up to 1 minute}
+	You create up to four torch-sized lights within range, making them appear as torches, lanterns, or glowing orbs that hover in the air for the duration. You can also combine the four lights into one glowing vaguely humanoid form of Medium size. Whichever form you choose, each light sheds dim light in a 10-foot radius.\linebreak
+	As a bonus action on your turn, you can move the lights up to 60 feet to a new spot within range. A light must be within 20 feet of another light created by this spell, and a light winks out if it exceeds the spell’s range.\linebreak
+	\pagebreak
+	\DndSpellHeader
+	{Entangle}
+	{1st-level Conjuration}
+	{Action}
+	{90 feet}
+	{V, S}
+	{Concentration, up to 1 minute}
+	Grasping weeds and vines sprout from the ground in a 20-foot square starting from a point within range. For the duration, these plants turn the ground in the area into difficult terrain.\linebreak
+	A creature in the area when you cast the spell must succeed on a Strength saving throw or be restrained by the entangling plants until the spell ends. A creature restrained by the plants can use its action to make a Strength check against your spell save DC. On a success, it frees itself.\linebreak
+	When the spell ends, the conjured plants wilt away.\linebreak
+	\DndSpellHeader
+	{Detect Evil and Good}
+	{1st-level Divination}
+	{Action}
+	{Self}
+	{V, S}
+	{Concentration, up to 10 minutes}
+	For the duration, you know if there is an aberration, celestial, elemental, fey, fiend, or undead within 30 feet of you, as well as where the creature is located. Similarly, you know if there is a place or object within 30 feet of you that has been magically consecrated or desecrated.\linebreak
+	The spell can penetrate most barriers, but it is blocked by 1 foot of stone, 1 inch of common metal, a thin sheet of lead, or 3 feet of wood or dirt.\linebreak
+	\DndSpellHeader
+	{Detect Thoughts}
+	{2nd-level Divination}
+	{Action}
+	{Self}
+	{V, S, M (a copper piece)}
+	{Concentration, up to 1 minute}
+	For the duration, you can read the thoughts of certain creatures. When you cast the spell and as your action on each turn until the spell ends, you can focus your mind on any one creature that you can see within 30 feet of you. If the creature you choose has an Intelligence of 3 or lower or doesn’t speak any language, the creature is unaffected.\linebreak
+	You initially learn the surface thoughts of the creature—what is most on its mind in that moment. As an action, you can either shift your attention to another creature’s thoughts or attempt to probe deeper into the same creature’s mind. If you probe deeper, the target must make a Wisdom saving throw. If it fails, you gain insight into its reasoning (if any), its emotional state, and something that loom s large in its mind (such as something it worries over, loves, or hates). If it succeeds, the spell ends. Either way, the target knows that you are probing into its mind, and unless you shift your attention to another creature’s thoughts, the creature can use its action on its turn to make an Intelligence check contested by your Intelligence check; if it succeeds, the spell ends.\linebreak
+	Questions verbally directed at the target creature naturally shape the course of its thoughts, so this spell is particularly effective as part of an interrogation.\linebreak
+	You can also use this spell to detect the presence of thinking creatures you can’t see. When you cast the spell or as your action during the duration, you can search for thoughts within 30 feet of you. The spell can penetrate barriers, but 2 feet of rock, 2 inches of any metal other than lead, or a thin sheet of lead blocks you. You can’t detect a creature with an Intelligence of 3 or lower or one that doesn’t speak any language.\linebreak
+	Once you detect the presence of a creature in this way, you can read its thoughts for the rest of the duration as described above, even if you can’t see it, but it must still be within range.\linebreak
+	\pagebreak
+	\DndSpellHeader
+	{Phantasmal Force}
+	{2nd-level Illusion}
+	{Action}
+	{60 feet}
+	{V, S, M (a bit of fleece)}
+	{Concentration, up to 1 minute}
+	You craft an illusion that takes root in the mind of a creature that you can see within range. The target must make an Intelligence saving throw. On a failed save, you create a phantasmal object, creature, or other visible phenomenon of your choice that is no larger than a 10-foot cube and that is perceivable only to the target for the duration. This spell has no effect on undead or constructs.\linebreak
+	The phantasm includes sound, temperature, and other stimuli, also evident only to the creature.\linebreak
+	The target can use its action to examine the phantasm with an Intelligence (Investigation) check against your spell save DC. If the check succeeds, the target realizes that the phantasm is an illusion, and the spell ends.\linebreak
+	While a target is affected by the spell, the target treats the phantasm as if it were real. The target rationalizes any illogical outcomes from interacting with the phantasm. For example, a target attempting to walk across a phantasmal bridge that spans a chasm falls once it steps onto the bridge. If the target survives the fall, it still believes that the bridge exists and comes up with some other explanation for its fall; it was pushed, it slipped, or a strong wind might have knocked it off.\linebreak
+	An affected target is so convinced of the phantasm’s reality that it can even take damage from the illusion. A phantasm created to appear as a creature can attack the target. Similarly, a phantasm created to appear as fire, a pool of acid, or lava can burn the target. Each round on your turn, the phantasm can deal 1d6 psychic damage to the target if it is in the phantasm’s area or within 5 feet of the phantasm, provided that the illusion is of a creature or hazard that could logically deal damage, such as by attacking. The target perceives the damage as a type appropriate to the illusion.
+\end{document}
